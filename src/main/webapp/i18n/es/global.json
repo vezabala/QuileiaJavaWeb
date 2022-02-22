@@ -7,6 +7,13 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
+        "franjaHoraria": "Franja Horaria",
+        "horario": "Horario",
+        "tipoDocumento": "Tipo Documento",
+        "especialidad": "Especialidad",
+        "medico": "Medico",
+        "paciente": "Paciente",
+        "cita": "Cita",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -1,0 +1,84 @@
+{
+    "name": "Medico",
+    "fields": [
+        {
+            "fieldName": "nombreCompleto",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldName": "identificacion",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength",
+                "unique"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+        {
+            "fieldName": "tarjetaProfesional",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength",
+                "unique"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+        {
+            "fieldName": "anosExperiencia",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "cita",
+            "otherEntityRelationshipName": "medicos",
+            "relationshipName": "citas"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "tipoDocumento",
+            "otherEntityRelationshipName": "medicos",
+            "relationshipValidateRules": "required",
+            "relationshipName": "tipoDocumento",
+            "otherEntityField": "nombreDocumento"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "especialidad",
+            "otherEntityRelationshipName": "medicos",
+            "relationshipValidateRules": "required",
+            "relationshipName": "especialidad",
+            "otherEntityField": "nombreEspecialidad"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "franjaHoraria",
+            "otherEntityRelationshipName": "medicos",
+            "relationshipValidateRules": "required",
+            "relationshipName": "franjaHoraria",
+            "otherEntityField": "franja"
+        }
+    ],
+    "changelogDate": "20220222195800",
+    "entityTableName": "medico",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

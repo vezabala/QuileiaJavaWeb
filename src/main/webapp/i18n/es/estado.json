@@ -1,0 +1,9 @@
+{
+  "quileiaJavaWebApp": {
+    "Estado": {
+      "null": "",
+      "ACTIVO": "ACTIVO",
+      "INACTIVO": "INACTIVO"
+    }
+  }
+}

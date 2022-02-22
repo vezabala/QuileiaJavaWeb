@@ -1,0 +1,74 @@
+enum Estado{
+	ACTIVO,
+    INACTIVO
+}
+entity FranjaHoraria{
+    franja String  required maxlength(30) unique,
+    estadoFranjaHoraria Estado required
+}
+entity Horario{
+    hora String  required maxlength(20) unique,
+}
+relationship OneToMany {
+	FranjaHoraria{horarios} to Horario{franjaHoraria(franja) required}
+}
+entity TipoDocumento{
+	iniciales String required  maxlength(20) unique,
+    nombreDocumento String  required maxlength(100) unique,
+    estadoTipoDocumento Estado required
+}
+entity Especialidad{
+    nombreEspecialidad String  required maxlength(255) unique,
+    estadoTipoDocumento Estado required
+}
+entity Medico{
+	nombreCompleto String  required maxlength(255),
+    identificacion String required maxlength(100) unique,
+    tarjetaProfesional String required maxlength(100) unique,
+    anosExperiencia Boolean required,
+}
+relationship OneToMany {
+	TipoDocumento{medicos} to Medico{tipoDocumento(nombreDocumento) required}
+}
+relationship OneToMany {
+	Especialidad{medicos} to Medico{especialidad(nombreEspecialidad) required}
+}
+relationship OneToMany {
+	FranjaHoraria{medicos} to Medico{franjaHoraria(franja) required}
+}
+entity Paciente{
+	nombreCompleto String required maxlength(250) unique,
+    fechaNacimiento LocalDate required,
+    identificacion String required maxlength(100),
+    eps String required maxlength(250),
+    historiaClinica TextBlob
+}
+relationship OneToMany {
+	TipoDocumento{pacientes} to Paciente{tipoDocumento(nombreDocumento) required}
+}
+
+entity Cita {
+}
+
+relationship OneToMany {
+	Especialidad{citas} to Cita{especialidad(nombreEspecialidad) required}
+}
+
+relationship OneToMany {
+	FranjaHoraria{citas} to Cita{franjaHoraria(franja) required}
+}
+relationship OneToMany {
+	Horario{horas} to Cita{Horario(hora) required}
+}
+
+relationship OneToMany {
+	Medico{citas} to Cita{medicos(nombreCompleto) required},
+    Paciente{citas} to Cita{pacientes(nombreCompleto) required}
+}
+dto * with mapstruct
+service * with serviceClass
+paginate  * with pagination
+//search * with elasticsearch
+
+
+

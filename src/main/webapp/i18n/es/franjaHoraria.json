@@ -1,0 +1,26 @@
+{
+  "quileiaJavaWebApp": {
+    "franjaHoraria": {
+      "home": {
+        "title": "Franja Horarias",
+        "createLabel": "Crear nuevo Franja Horaria",
+        "createOrEditLabel": "Crear o editar Franja Horaria",
+        "notFound": "Ningún Franja Horarias encontrado"
+      },
+      "created": "Un nuevo Franja Horaria ha sido creado con el identificador {{ param }}",
+      "updated": "Un Franja Horaria ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Franja Horaria ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Franja Horaria {{ id }}?"
+      },
+      "detail": {
+        "title": "Franja Horaria"
+      },
+      "franja": "Franja",
+      "estadoFranjaHoraria": "Estado Franja Horaria",
+      "horarios": "Horarios",
+      "medicos": "Medicos",
+      "citas": "Citas"
+    }
+  }
+}

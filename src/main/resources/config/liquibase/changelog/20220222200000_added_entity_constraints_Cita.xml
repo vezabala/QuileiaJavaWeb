@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <!--
+        Added the constraints for entity Cita.
+    -->
+    <changeSet id="20220222200000-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="especialidad_id"
+                                 baseTableName="cita"
+                                 constraintName="fk_cita_especialidad_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="especialidad"/>
+
+        <addForeignKeyConstraint baseColumnNames="franja_horaria_id"
+                                 baseTableName="cita"
+                                 constraintName="fk_cita_franja_horaria_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="franja_horaria"/>
+
+        <addForeignKeyConstraint baseColumnNames="horario_id"
+                                 baseTableName="cita"
+                                 constraintName="fk_cita_horario_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="horario"/>
+
+        <addForeignKeyConstraint baseColumnNames="medicos_id"
+                                 baseTableName="cita"
+                                 constraintName="fk_cita_medicos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="medico"/>
+
+        <addForeignKeyConstraint baseColumnNames="pacientes_id"
+                                 baseTableName="cita"
+                                 constraintName="fk_cita_pacientes_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="paciente"/>
+
+    </changeSet>
+</databaseChangeLog>

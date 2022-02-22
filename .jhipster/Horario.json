@@ -1,0 +1,42 @@
+{
+    "name": "Horario",
+    "fields": [
+        {
+            "fieldName": "hora",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength",
+                "unique"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "cita",
+            "otherEntityRelationshipName": "horario",
+            "relationshipName": "horas"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "franjaHoraria",
+            "otherEntityRelationshipName": "horarios",
+            "relationshipValidateRules": "required",
+            "relationshipName": "franjaHoraria",
+            "otherEntityField": "franja"
+        }
+    ],
+    "changelogDate": "20220222195500",
+    "entityTableName": "horario",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

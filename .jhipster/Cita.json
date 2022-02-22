@@ -1,0 +1,57 @@
+{
+    "name": "Cita",
+    "fields": [],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "especialidad",
+            "otherEntityRelationshipName": "citas",
+            "relationshipValidateRules": "required",
+            "relationshipName": "especialidad",
+            "otherEntityField": "nombreEspecialidad"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "franjaHoraria",
+            "otherEntityRelationshipName": "citas",
+            "relationshipValidateRules": "required",
+            "relationshipName": "franjaHoraria",
+            "otherEntityField": "franja"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "horario",
+            "otherEntityRelationshipName": "horas",
+            "relationshipValidateRules": "required",
+            "relationshipName": "horario",
+            "otherEntityField": "hora"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "medico",
+            "otherEntityRelationshipName": "citas",
+            "relationshipValidateRules": "required",
+            "relationshipName": "medicos",
+            "otherEntityField": "nombreCompleto"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "paciente",
+            "otherEntityRelationshipName": "citas",
+            "relationshipValidateRules": "required",
+            "relationshipName": "pacientes",
+            "otherEntityField": "nombreCompleto"
+        }
+    ],
+    "changelogDate": "20220222200000",
+    "entityTableName": "cita",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
