@@ -31,9 +31,11 @@ export class CitaUpdateComponent implements OnInit {
   horarios: IHorario[] = [];
   medicos: IMedico[] = [];
   pacientes: IPaciente[] = [];
+  fechaDp: any;
 
   editForm = this.fb.group({
     id: [],
+    fecha: [null, [Validators.required]],
     especialidadId: [null, Validators.required],
     franjaHorariaId: [null, Validators.required],
     horarioId: [null, Validators.required],
@@ -71,6 +73,7 @@ export class CitaUpdateComponent implements OnInit {
   updateForm(cita: ICita): void {
     this.editForm.patchValue({
       id: cita.id,
+      fecha: cita.fecha,
       especialidadId: cita.especialidadId,
       franjaHorariaId: cita.franjaHorariaId,
       horarioId: cita.horarioId,
@@ -97,6 +100,7 @@ export class CitaUpdateComponent implements OnInit {
     return {
       ...new Cita(),
       id: this.editForm.get(['id'])!.value,
+      fecha: this.editForm.get(['fecha'])!.value,
       especialidadId: this.editForm.get(['especialidadId'])!.value,
       franjaHorariaId: this.editForm.get(['franjaHorariaId'])!.value,
       horarioId: this.editForm.get(['horarioId'])!.value,

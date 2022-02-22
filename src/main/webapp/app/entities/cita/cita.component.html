@@ -23,6 +23,7 @@
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="fecha"><span jhiTranslate="quileiaJavaWebApp.cita.fecha">Fecha</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="especialidadNombreEspecialidad"><span jhiTranslate="quileiaJavaWebApp.cita.especialidad">Especialidad</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="franjaHorariaFranja"><span jhiTranslate="quileiaJavaWebApp.cita.franjaHoraria">Franja Horaria</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="horarioHora"><span jhiTranslate="quileiaJavaWebApp.cita.horario">Horario</span> <fa-icon icon="sort"></fa-icon></th>
@@ -34,6 +35,7 @@
             <tbody>
                 <tr *ngFor="let cita of citas ;trackBy: trackId">
                     <td><a [routerLink]="['/cita', cita.id, 'view']">{{ cita.id }}</a></td>
+                    <td>{{ cita.fecha | date:'mediumDate' }}</td>
                     <td>
                         <div *ngIf="cita.especialidadId">
                             <a [routerLink]="['/especialidad', cita.especialidadId , 'view']" >{{ cita.especialidadNombreEspecialidad }}</a>

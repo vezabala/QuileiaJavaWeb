@@ -22,6 +22,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,6 +39,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @WithMockUser
 public class CitaResourceIT {
+
+    private static final LocalDate DEFAULT_FECHA = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_FECHA = LocalDate.now(ZoneId.systemDefault());
 
     @Autowired
     private CitaRepository citaRepository;
@@ -62,7 +67,8 @@ public class CitaResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Cita createEntity(EntityManager em) {
-        Cita cita = new Cita();
+        Cita cita = new Cita()
+            .fecha(DEFAULT_FECHA);
         // Add required entity
         Especialidad especialidad;
         if (TestUtil.findAll(em, Especialidad.class).isEmpty()) {
@@ -122,7 +128,8 @@ public class CitaResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Cita createUpdatedEntity(EntityManager em) {
-        Cita cita = new Cita();
+        Cita cita = new Cita()
+            .fecha(UPDATED_FECHA);
         // Add required entity
         Especialidad especialidad;
         if (TestUtil.findAll(em, Especialidad.class).isEmpty()) {
@@ -197,6 +204,7 @@ public class CitaResourceIT {
         List<Cita> citaList = citaRepository.findAll();
         assertThat(citaList).hasSize(databaseSizeBeforeCreate + 1);
         Cita testCita = citaList.get(citaList.size() - 1);
+        assertThat(testCita.getFecha()).isEqualTo(DEFAULT_FECHA);
     }
 
     @Test
@@ -222,6 +230,25 @@ public class CitaResourceIT {
 
     @Test
     @Transactional
+    public void checkFechaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = citaRepository.findAll().size();
+        // set the field null
+        cita.setFecha(null);
+
+        // Create the Cita, which fails.
+        CitaDTO citaDTO = citaMapper.toDto(cita);
+
+        restCitaMockMvc.perform(post("/api/citas")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(citaDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Cita> citaList = citaRepository.findAll();
+        assertThat(citaList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllCitas() throws Exception {
         // Initialize the database
         citaRepository.saveAndFlush(cita);
@@ -230,7 +257,8 @@ public class CitaResourceIT {
         restCitaMockMvc.perform(get("/api/citas?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(cita.getId().intValue())));
+            .andExpect(jsonPath("$.[*].id").value(hasItem(cita.getId().intValue())))
+            .andExpect(jsonPath("$.[*].fecha").value(hasItem(DEFAULT_FECHA.toString())));
     }
     
     @Test
@@ -243,7 +271,8 @@ public class CitaResourceIT {
         restCitaMockMvc.perform(get("/api/citas/{id}", cita.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(cita.getId().intValue()));
+            .andExpect(jsonPath("$.id").value(cita.getId().intValue()))
+            .andExpect(jsonPath("$.fecha").value(DEFAULT_FECHA.toString()));
     }
 
     @Test
@@ -266,6 +295,8 @@ public class CitaResourceIT {
         Cita updatedCita = citaRepository.findById(cita.getId()).get();
         // Disconnect from session so that the updates on updatedCita are not directly saved in db
         em.detach(updatedCita);
+        updatedCita
+            .fecha(UPDATED_FECHA);
         CitaDTO citaDTO = citaMapper.toDto(updatedCita);
 
         restCitaMockMvc.perform(put("/api/citas")
@@ -277,6 +308,7 @@ public class CitaResourceIT {
         List<Cita> citaList = citaRepository.findAll();
         assertThat(citaList).hasSize(databaseSizeBeforeUpdate);
         Cita testCita = citaList.get(citaList.size() - 1);
+        assertThat(testCita.getFecha()).isEqualTo(UPDATED_FECHA);
     }
 
     @Test

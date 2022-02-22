@@ -16,6 +16,7 @@
       "detail": {
         "title": "Cita"
       },
+      "fecha": "Fecha",
       "especialidad": "Especialidad",
       "franjaHoraria": "Franja Horaria",
       "horario": "Horario",
