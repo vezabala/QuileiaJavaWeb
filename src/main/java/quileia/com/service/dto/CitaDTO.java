@@ -1,5 +1,6 @@
 package quileia.com.service.dto;
 
+import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,6 +11,9 @@ import java.util.Objects;
 public class CitaDTO implements Serializable {
     
     private Long id;
+
+    @NotNull
+    private LocalDate fecha;
 
 
     private Long especialidadId;
@@ -38,6 +42,14 @@ public class CitaDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
     public Long getEspecialidadId() {
@@ -145,6 +157,7 @@ public class CitaDTO implements Serializable {
     public String toString() {
         return "CitaDTO{" +
             "id=" + getId() +
+            ", fecha='" + getFecha() + "'" +
             ", especialidadId=" + getEspecialidadId() +
             ", especialidadNombreEspecialidad='" + getEspecialidadNombreEspecialidad() + "'" +
             ", franjaHorariaId=" + getFranjaHorariaId() +

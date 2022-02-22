@@ -1,11 +1,4 @@
 id;franja;estado_franja_horaria
-1;Silver Massachusetts;INACTIVO
-2;Gorgeous Plastic Chair Meadow;ACTIVO
-3;payment JBOD;ACTIVO
-4;Identity Florida;INACTIVO
-5;Multi-layered Buckinghamshire ;ACTIVO
-6;Facilitator convergence;INACTIVO
-7;Licensed Fresh Tuna Right-size;ACTIVO
-8;invoice methodology;ACTIVO
-9;modular e-markets;INACTIVO
-10;project Principal metrics;ACTIVO
+1;6:00am - 2:00pm;ACTIVO
+2;2:00pm - 10:00pm;ACTIVO
+3;10:00pm - 6:00am;ACTIVO

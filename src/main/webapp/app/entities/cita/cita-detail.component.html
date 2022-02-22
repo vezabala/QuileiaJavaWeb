@@ -8,6 +8,10 @@
             <jhi-alert-error></jhi-alert-error>
 
             <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="quileiaJavaWebApp.cita.fecha">Fecha</span></dt>
+                <dd>
+                    <span>{{ cita.fecha }}</span>
+                </dd>
                 <dt><span jhiTranslate="quileiaJavaWebApp.cita.especialidad">Especialidad</span></dt>
                 <dd>
                     <div *ngIf="cita.especialidadId">

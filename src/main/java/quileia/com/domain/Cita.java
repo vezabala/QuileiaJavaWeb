@@ -7,6 +7,7 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.time.LocalDate;
 
 /**
  * A Cita.
@@ -18,9 +19,13 @@ public class Cita implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGeneratorCita")
+    @SequenceGenerator(name = "sequenceGeneratorCita")
     private Long id;
+
+    @NotNull
+    @Column(name = "fecha", nullable = false)
+    private LocalDate fecha;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -54,6 +59,19 @@ public class Cita implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public Cita fecha(LocalDate fecha) {
+        this.fecha = fecha;
+        return this;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
     }
 
     public Especialidad getEspecialidad() {
@@ -142,6 +160,7 @@ public class Cita implements Serializable {
     public String toString() {
         return "Cita{" +
             "id=" + getId() +
+            ", fecha='" + getFecha() + "'" +
             "}";
     }
 }

@@ -1,5 +1,8 @@
+import { Moment } from 'moment';
+
 export interface ICita {
   id?: number;
+  fecha?: Moment;
   especialidadNombreEspecialidad?: string;
   especialidadId?: number;
   franjaHorariaFranja?: string;
@@ -15,6 +18,7 @@ export interface ICita {
 export class Cita implements ICita {
   constructor(
     public id?: number,
+    public fecha?: Moment,
     public especialidadNombreEspecialidad?: string,
     public especialidadId?: number,
     public franjaHorariaFranja?: string,
