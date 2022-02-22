@@ -1,0 +1,54 @@
+{
+    "name": "FranjaHoraria",
+    "fields": [
+        {
+            "fieldName": "franja",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength",
+                "unique"
+            ],
+            "fieldValidateRulesMaxlength": "30"
+        },
+        {
+            "fieldName": "estadoFranjaHoraria",
+            "fieldType": "Estado",
+            "fieldValues": "ACTIVO,INACTIVO",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "horario",
+            "otherEntityRelationshipName": "franjaHoraria",
+            "relationshipName": "horarios"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "medico",
+            "otherEntityRelationshipName": "franjaHoraria",
+            "relationshipName": "medicos"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "cita",
+            "otherEntityRelationshipName": "franjaHoraria",
+            "relationshipName": "citas"
+        }
+    ],
+    "changelogDate": "20220222195400",
+    "entityTableName": "franja_horaria",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

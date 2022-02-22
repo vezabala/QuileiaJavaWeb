@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="medico">
+            <h2><span jhiTranslate="quileiaJavaWebApp.medico.detail.title">Medico</span> {{ medico.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="quileiaJavaWebApp.medico.nombreCompleto">Nombre Completo</span></dt>
+                <dd>
+                    <span>{{ medico.nombreCompleto }}</span>
+                </dd>
+                <dt><span jhiTranslate="quileiaJavaWebApp.medico.identificacion">Identificacion</span></dt>
+                <dd>
+                    <span>{{ medico.identificacion }}</span>
+                </dd>
+                <dt><span jhiTranslate="quileiaJavaWebApp.medico.tarjetaProfesional">Tarjeta Profesional</span></dt>
+                <dd>
+                    <span>{{ medico.tarjetaProfesional }}</span>
+                </dd>
+                <dt><span jhiTranslate="quileiaJavaWebApp.medico.anosExperiencia">Anos Experiencia</span></dt>
+                <dd>
+                    <span>{{ medico.anosExperiencia }}</span>
+                </dd>
+                <dt><span jhiTranslate="quileiaJavaWebApp.medico.tipoDocumento">Tipo Documento</span></dt>
+                <dd>
+                    <div *ngIf="medico.tipoDocumentoId">
+                        <a [routerLink]="['/tipo-documento', medico.tipoDocumentoId, 'view']">{{ medico.tipoDocumentoNombreDocumento }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="quileiaJavaWebApp.medico.especialidad">Especialidad</span></dt>
+                <dd>
+                    <div *ngIf="medico.especialidadId">
+                        <a [routerLink]="['/especialidad', medico.especialidadId, 'view']">{{ medico.especialidadNombreEspecialidad }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="quileiaJavaWebApp.medico.franjaHoraria">Franja Horaria</span></dt>
+                <dd>
+                    <div *ngIf="medico.franjaHorariaId">
+                        <a [routerLink]="['/franja-horaria', medico.franjaHorariaId, 'view']">{{ medico.franjaHorariaFranja }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/medico', medico.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
