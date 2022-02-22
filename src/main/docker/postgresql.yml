@@ -1,0 +1,11 @@
+version: '2'
+services:
+  quileiajavaweb-postgresql:
+    image: postgres:12.1
+    # volumes:
+    #     - ~/volumes/jhipster/QuileiaJavaWeb/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=QuileiaJavaWeb
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432
