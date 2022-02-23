@@ -1,11 +1,7 @@
 id;nombre_especialidad;estado_tipo_documento
-1;Refined quantifying;ACTIVO
-2;Wooden Squares Personal Loan Account;ACTIVO
-3;navigating Yen Lead;INACTIVO
-4;Intranet Rhode Island Cambridgeshire;INACTIVO
-5;synthesize Product Azerbaijanian Manat;INACTIVO
-6;Wooden 1080p;ACTIVO
-7;COM;INACTIVO
-8;hacking Health programming;INACTIVO
-9;Intelligent Steel Cheese Incredible Frozen Shirt interfaces;INACTIVO
-10;Refined Cotton Pants;ACTIVO
+1;Medicina general;ACTIVO
+2;Endocrinología;ACTIVO
+3;Urología;ACTIVO
+4;Reumatología;ACTIVO
+5;Neurología;ACTIVO
+6;Hematología;ACTIVO

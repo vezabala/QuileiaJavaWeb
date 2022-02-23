@@ -13,7 +13,7 @@
         <createSequence sequenceName="sequence_generator_cita" startValue="1" incrementBy="50"/>
     </changeSet>
     <changeSet id="15364829047586" author="jhipster">
-        <createSequence sequenceName="sequence_generator_especialidad" startValue="1" incrementBy="50"/>
+        <createSequence sequenceName="sequence_generator_especialidad" startValue="7" incrementBy="50"/>
     </changeSet>
     <changeSet id="65748392658496" author="jhipster">
         <createSequence sequenceName="sequence_generator_franja" startValue="4" incrementBy="50"/>
