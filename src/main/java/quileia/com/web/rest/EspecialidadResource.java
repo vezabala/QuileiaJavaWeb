@@ -111,7 +111,7 @@ public class EspecialidadResource {
      * @param estado estado to search
      * @return the list of entities.
      */
-    @GetMapping("/especialidad/estado/{estado}")
+    @GetMapping("/especialidads/estado/{estado}")
     public ResponseEntity<List<EspecialidadDTO>> getAllEspecialidadesByEstado(@PathVariable String estado) {
         log.debug("REST request to get a page of Especialidades");
         List<EspecialidadDTO> page = especialidadService.findByEstado(estado);
