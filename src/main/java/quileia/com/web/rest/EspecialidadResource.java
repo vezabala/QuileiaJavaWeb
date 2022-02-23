@@ -57,6 +57,9 @@ public class EspecialidadResource {
         if (especialidadDTO.getId() != null) {
             throw new BadRequestAlertException("A new especialidad cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (especialidadService.findByNombreEspecialidad(especialidadDTO.getNombreEspecialidad()).isPresent()) {
+            throw new BadRequestAlertException("A new especialidad cannot already have an NOMBREESPECIALIDAD", ENTITY_NAME, "nombreespecialistaexists");
+        }
         EspecialidadDTO result = especialidadService.save(especialidadDTO);
         return ResponseEntity.created(new URI("/api/especialidads/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -78,6 +81,10 @@ public class EspecialidadResource {
         if (especialidadDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        Optional<EspecialidadDTO> especialidadTemp = especialidadService.findByNombreEspecialidad(especialidadDTO.getNombreEspecialidad());
+        if (especialidadTemp.isPresent() && !especialidadTemp.get().getId().equals(especialidadDTO.getId())) {
+            throw new BadRequestAlertException("A new especialidad cannot already have an NOMBREESPECIALIDAD", ENTITY_NAME, "nombreespecialistaexists");
+        }
         EspecialidadDTO result = especialidadService.save(especialidadDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, especialidadDTO.getId().toString()))
@@ -96,6 +103,19 @@ public class EspecialidadResource {
         Page<EspecialidadDTO> page = especialidadService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * Get all the especialidad by estado.
+     *
+     * @param estado estado to search
+     * @return the list of entities.
+     */
+    @GetMapping("/especialidad/estado/{estado}")
+    public ResponseEntity<List<EspecialidadDTO>> getAllEspecialidadesByEstado(@PathVariable String estado) {
+        log.debug("REST request to get a page of Especialidades");
+        List<EspecialidadDTO> page = especialidadService.findByEstado(estado);
+        return ResponseEntity.ok().body(page);
     }
 
     /**

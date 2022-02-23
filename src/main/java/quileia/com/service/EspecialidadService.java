@@ -1,6 +1,7 @@
 package quileia.com.service;
 
 import quileia.com.domain.Especialidad;
+import quileia.com.domain.enumeration.Estado;
 import quileia.com.repository.EspecialidadRepository;
 import quileia.com.service.dto.EspecialidadDTO;
 import quileia.com.service.mapper.EspecialidadMapper;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -55,6 +57,31 @@ public class EspecialidadService {
     public Page<EspecialidadDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Especialidads");
         return especialidadRepository.findAll(pageable)
+            .map(especialidadMapper::toDto);
+    }
+
+    /**
+     * Get all the especialidades by Estado.
+     *
+     * @param estado estado to search
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<EspecialidadDTO> findByEstado(String estado){
+        log.debug("Request to get all Especialidad by estado");
+        return especialidadMapper.toDto(especialidadRepository.findByEstadoEspecialidad(Estado.valueOf(estado)));
+    }
+
+    /**
+     * Get one especialidad by nombre especialidad.
+     *
+     * @param nombreEspecialidad the nombre documento of the entity
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<EspecialidadDTO> findByNombreEspecialidad(String nombreEspecialidad) {
+        log.debug("Request to get especialidad : {}", nombreEspecialidad);
+        return especialidadRepository.findByNombreEspecialidad(nombreEspecialidad)
             .map(especialidadMapper::toDto);
     }
 

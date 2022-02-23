@@ -136,8 +136,9 @@
     "userexists": "¡El nombre de usuario ya existe!",
     "emailexists": "¡La cuenta de correo ya está en uso!",
     "idexists": "Un/a nuevo/a {{entityName}} no puede tener ID",
-    "inicialesexists": "ya existe una sigla igual en {{ entityName }}",
-    "nombredocumentoexists": "ya existe un nombre de documento igual en {{ entityName }}",
+    "inicialesexists": "ya existe una sigla igual en la entidad {{ entityName }}",
+    "nombredocumentoexists": "ya existe un nombre de documento igual en la entidad{{ entityName }}",
+    "nombreespecialistaexists": "ya existe un nombre de especialista igual en la entidad {{ entityName }}",
     "idnull": "ID inválido",
     "file": {
       "could.not.extract": "Could not extract file",
