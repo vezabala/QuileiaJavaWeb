@@ -57,6 +57,9 @@ public class HorarioResource {
         if (horarioDTO.getId() != null) {
             throw new BadRequestAlertException("A new horario cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (horarioService.findByHora(horarioDTO.getHora()).isPresent()) {
+            throw new BadRequestAlertException("A new horario cannot already have an HORA", ENTITY_NAME, "horaexists");
+        }
         HorarioDTO result = horarioService.save(horarioDTO);
         return ResponseEntity.created(new URI("/api/horarios/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -77,6 +80,10 @@ public class HorarioResource {
         log.debug("REST request to update Horario : {}", horarioDTO);
         if (horarioDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Optional<HorarioDTO> horarioTemp = horarioService.findByHora(horarioDTO.getHora());
+        if (horarioTemp.isPresent() && !horarioTemp.get().getId().equals(horarioDTO.getId())) {
+            throw new BadRequestAlertException("A new horario cannot already have an HORA", ENTITY_NAME, "horaexists");
         }
         HorarioDTO result = horarioService.save(horarioDTO);
         return ResponseEntity.ok()
