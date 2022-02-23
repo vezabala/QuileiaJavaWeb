@@ -59,6 +59,19 @@ public class HorarioService {
     }
 
     /**
+     * Get one Horario by hora.
+     *
+     * @param hora the nombre documento of the entity
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<HorarioDTO> findByHora(String hora) {
+        log.debug("Request to get Horario : {}", hora);
+        return horarioRepository.findByHora(hora)
+            .map(horarioMapper::toDto);
+    }
+
+    /**
      * Get one horario by id.
      *
      * @param id the id of the entity.

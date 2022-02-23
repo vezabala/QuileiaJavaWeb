@@ -142,6 +142,7 @@
     "franjaexists": "ya existe una franja de este horario la entidad {{ entityName }}",
     "idpacienteexists": "Ya existe una identificacion con el mismo tipo de documento en la entidad {{ entityName }}",
     "idmedicoexists": "Ya existe una identificacion con el mismo tipo de documento en la entidad {{ entityName }}",
+    "horaexists": "ya existe esta hora la entidad {{ entityName }}",
     "idnull": "ID inválido",
     "file": {
       "could.not.extract": "Could not extract file",
