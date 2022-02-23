@@ -1,6 +1,7 @@
 package quileia.com.service;
 
 import quileia.com.domain.TipoDocumento;
+import quileia.com.domain.enumeration.Estado;
 import quileia.com.repository.TipoDocumentoRepository;
 import quileia.com.service.dto.TipoDocumentoDTO;
 import quileia.com.service.mapper.TipoDocumentoMapper;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -55,6 +57,44 @@ public class TipoDocumentoService {
     public Page<TipoDocumentoDTO> findAll(Pageable pageable) {
         log.debug("Request to get all TipoDocumentos");
         return tipoDocumentoRepository.findAll(pageable)
+            .map(tipoDocumentoMapper::toDto);
+    }
+
+    /**
+     * Get all the tipoDocumentos by Estado.
+     *
+     * @param estado estado to search
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<TipoDocumentoDTO> findByEstado(String estado){
+        log.debug("Request to get all TipoDocumentos by estado");
+        return tipoDocumentoMapper.toDto(tipoDocumentoRepository.findByEstadoTipoDocumento(Estado.valueOf(estado)));
+    }
+
+    /**
+     * Get one tipoDocumento by iniciales.
+     *
+     * @param iniciales the iniciales of the entity.
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<TipoDocumentoDTO> findByIniciales(String iniciales) {
+        log.debug("Request to get TipoSocumento1 : {}", iniciales);
+        return tipoDocumentoRepository.findByIniciales(iniciales)
+            .map(tipoDocumentoMapper::toDto);
+    }
+
+    /**
+     * Get one tipoDocumento by nombre documento.
+     *
+     * @param nombreDocumento the nombre documento of the entity
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<TipoDocumentoDTO> findByNombreDocumento(String nombreDocumento) {
+        log.debug("Request to get TipoDocumento : {}", nombreDocumento);
+        return tipoDocumentoRepository.findByNombreDocumento(nombreDocumento)
             .map(tipoDocumentoMapper::toDto);
     }
 
