@@ -57,6 +57,12 @@ public class TipoDocumentoResource {
         if (tipoDocumentoDTO.getId() != null) {
             throw new BadRequestAlertException("A new tipoDocumento cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (tipoDocumentoService.findByIniciales(tipoDocumentoDTO.getIniciales()).isPresent()) {
+            throw new BadRequestAlertException("A new tipoDocumento cannot already have an INICIALES", ENTITY_NAME, "inicialesexists");
+        }
+        if (tipoDocumentoService.findByNombreDocumento(tipoDocumentoDTO.getNombreDocumento()).isPresent()) {
+            throw new BadRequestAlertException("A new tipoDocumento cannot already have an NOMBREDOCUMENTO", ENTITY_NAME, "nombredocumentoexists");
+        }
         TipoDocumentoDTO result = tipoDocumentoService.save(tipoDocumentoDTO);
         return ResponseEntity.created(new URI("/api/tipo-documentos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -78,6 +84,14 @@ public class TipoDocumentoResource {
         if (tipoDocumentoDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        Optional<TipoDocumentoDTO> tipoDocumentoTemp = tipoDocumentoService.findByIniciales(tipoDocumentoDTO.getIniciales());
+        if (tipoDocumentoTemp.isPresent() && !tipoDocumentoTemp.get().getId().equals(tipoDocumentoDTO.getId())) {
+            throw new BadRequestAlertException("A new tipoDocumento cannot already have an INICIALES", ENTITY_NAME, "inicialesexists");
+        }
+        Optional<TipoDocumentoDTO> tipoDocumentoTemp2 = tipoDocumentoService.findByNombreDocumento(tipoDocumentoDTO.getNombreDocumento());
+        if (tipoDocumentoTemp2.isPresent() && !tipoDocumentoTemp2.get().getId().equals(tipoDocumentoDTO.getId())) {
+            throw new BadRequestAlertException("A new tipoDocumento cannot already have an NOMBREDOCUMENTO", ENTITY_NAME, "nombredocumentoexists");
+        }
         TipoDocumentoDTO result = tipoDocumentoService.save(tipoDocumentoDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, tipoDocumentoDTO.getId().toString()))
@@ -96,6 +110,19 @@ public class TipoDocumentoResource {
         Page<TipoDocumentoDTO> page = tipoDocumentoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * Get all the tipoDocumento by estado.
+     *
+     * @param estado estado to search
+     * @return the list of entities.
+     */
+    @GetMapping("/tipo-documentos/estado/{estado}")
+    public ResponseEntity<List<TipoDocumentoDTO>> getAllTipoDocumentosByEstado(@PathVariable String estado) {
+        log.debug("REST request to get a page of TipoDocumentos");
+        List<TipoDocumentoDTO> page = tipoDocumentoService.findByEstado(estado);
+        return ResponseEntity.ok().body(page);
     }
 
     /**
