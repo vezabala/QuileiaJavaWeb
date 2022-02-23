@@ -60,6 +60,9 @@ public class MedicoResource {
         if (medicoService.findByIdentificacionAndTipoDocumento(medicoDTO).isPresent()) {
             throw new BadRequestAlertException("A new medico cannot already have an NUMERO DOCUMENTO and TIPO DOCUMENTO", ENTITY_NAME, "idmedicoexists");
         }
+        if (medicoService.findByIdentificacionAndFranjaHoraria(medicoDTO).isPresent()) {
+            throw new BadRequestAlertException("A new medico cannot already have an NUMERO DOCUMENTO and FRANJA HORARIA", ENTITY_NAME, "idmedicofranjaexists");
+        }
         MedicoDTO result = medicoService.save(medicoDTO);
         return ResponseEntity.created(new URI("/api/medicos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -84,6 +87,10 @@ public class MedicoResource {
         Optional<MedicoDTO> medicoTemp = medicoService.findByIdentificacionAndTipoDocumento(medicoDTO);
         if (medicoTemp.isPresent() && (!medicoTemp.get().getId().equals(medicoDTO.getId()))) {
             throw new BadRequestAlertException("A new medico cannot already have an NUMERO DOCUMENTO and TIPO DOCUMENTO", ENTITY_NAME, "idmedicoexists");
+        }
+        Optional<MedicoDTO> medicoTemp2 = medicoService.findByIdentificacionAndFranjaHoraria(medicoDTO);
+        if (medicoTemp.isPresent() && (!medicoTemp.get().getId().equals(medicoDTO.getId()))) {
+            throw new BadRequestAlertException("A new medico cannot already have an NUMERO DOCUMENTO and FRANJA HORARIA", ENTITY_NAME, "idmedicofranjaexists");
         }
         MedicoDTO result = medicoService.save(medicoDTO);
         return ResponseEntity.ok()

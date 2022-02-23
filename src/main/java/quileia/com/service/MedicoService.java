@@ -71,6 +71,19 @@ public class MedicoService {
             medicoMapper.toEntity(medicoDTO).getTipoDocumento())
             .map(medicoMapper::toDto);
     }
+    /**
+     * Get one medico by franja horaria and identificacion.
+     *
+     * @param medicoDTO the DTO of the medico
+     * @return the optional with the entity.
+     */
+    @Transactional(readOnly = true)
+    public Optional<MedicoDTO> findByIdentificacionAndFranjaHoraria(MedicoDTO medicoDTO) {
+        log.debug("Request to get Medico : {}", medicoDTO.getId()+", "+medicoDTO.getFranjaHorariaId());
+        return medicoRepository.findByIdentificacionAndFranjaHoraria(medicoDTO.getIdentificacion(),
+            medicoMapper.toEntity(medicoDTO).getFranjaHoraria())
+            .map(medicoMapper::toDto);
+    }
 
     /**
      * Get one medico by id.
