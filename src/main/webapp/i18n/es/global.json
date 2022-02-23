@@ -140,6 +140,7 @@
     "nombredocumentoexists": "ya existe un nombre de documento igual en la entidad{{ entityName }}",
     "nombreespecialistaexists": "ya existe un nombre de especialista igual en la entidad {{ entityName }}",
     "franjaexists": "ya existe una franja de este horario la entidad {{ entityName }}",
+    "idclienteexists": "Ya existe una identificacion con el mismo tipo de documento en la entidad {{ entityName }}",
     "idnull": "ID inválido",
     "file": {
       "could.not.extract": "Could not extract file",
