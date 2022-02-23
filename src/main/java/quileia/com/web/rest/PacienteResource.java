@@ -57,6 +57,9 @@ public class PacienteResource {
         if (pacienteDTO.getId() != null) {
             throw new BadRequestAlertException("A new paciente cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (pacienteService.findByIdentificacionAndTipoDocumento(pacienteDTO).isPresent()) {
+            throw new BadRequestAlertException("A new paciente cannot already have an NUMERO DOCUMENTO and TIPO DOCUMENTO", ENTITY_NAME, "idpacienteexists");
+        }
         PacienteDTO result = pacienteService.save(pacienteDTO);
         return ResponseEntity.created(new URI("/api/pacientes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -77,6 +80,10 @@ public class PacienteResource {
         log.debug("REST request to update Paciente : {}", pacienteDTO);
         if (pacienteDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Optional<PacienteDTO> pacienteTemp = pacienteService.findByIdentificacionAndTipoDocumento(pacienteDTO);
+        if (pacienteTemp.isPresent() && (!pacienteTemp.get().getId().equals(pacienteDTO.getId()))) {
+            throw new BadRequestAlertException("A new paciente cannot already have an NUMERO DOCUMENTO and TIPO DOCUMENTO", ENTITY_NAME, "idPACIENTEexists");
         }
         PacienteDTO result = pacienteService.save(pacienteDTO);
         return ResponseEntity.ok()

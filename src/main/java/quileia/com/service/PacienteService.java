@@ -59,6 +59,20 @@ public class PacienteService {
     }
 
     /**
+     * Get one paciente by tipo documento and identificacion.
+     *
+     * @param pacienteDTO the DTO of the paciente
+     * @return the optional with the entity.
+     */
+    @Transactional(readOnly = true)
+    public Optional<PacienteDTO> findByIdentificacionAndTipoDocumento(PacienteDTO pacienteDTO) {
+        log.debug("Request to get Paciente : {}", pacienteDTO.getId()+", "+pacienteDTO.getTipoDocumentoId());
+        return pacienteRepository.findByIdentificacionAndTipoDocumento(pacienteDTO.getIdentificacion(),
+            pacienteMapper.toEntity(pacienteDTO).getTipoDocumento())
+            .map(pacienteMapper::toDto);
+    }
+
+    /**
      * Get one paciente by id.
      *
      * @param id the id of the entity.
