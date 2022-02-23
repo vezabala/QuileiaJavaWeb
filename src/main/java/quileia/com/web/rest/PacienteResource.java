@@ -83,7 +83,7 @@ public class PacienteResource {
         }
         Optional<PacienteDTO> pacienteTemp = pacienteService.findByIdentificacionAndTipoDocumento(pacienteDTO);
         if (pacienteTemp.isPresent() && (!pacienteTemp.get().getId().equals(pacienteDTO.getId()))) {
-            throw new BadRequestAlertException("A new paciente cannot already have an NUMERO DOCUMENTO and TIPO DOCUMENTO", ENTITY_NAME, "idPACIENTEexists");
+            throw new BadRequestAlertException("A new paciente cannot already have an NUMERO DOCUMENTO and TIPO DOCUMENTO", ENTITY_NAME, "idpacienteexists");
         }
         PacienteDTO result = pacienteService.save(pacienteDTO);
         return ResponseEntity.ok()

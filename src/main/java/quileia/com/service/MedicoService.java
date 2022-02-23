@@ -59,6 +59,20 @@ public class MedicoService {
     }
 
     /**
+     * Get one medico by tipo documento and identificacion.
+     *
+     * @param medicoDTO the DTO of the medico
+     * @return the optional with the entity.
+     */
+    @Transactional(readOnly = true)
+    public Optional<MedicoDTO> findByIdentificacionAndTipoDocumento(MedicoDTO medicoDTO) {
+        log.debug("Request to get Medico : {}", medicoDTO.getId()+", "+medicoDTO.getTipoDocumentoId());
+        return medicoRepository.findByIdentificacionAndTipoDocumento(medicoDTO.getIdentificacion(),
+            medicoMapper.toEntity(medicoDTO).getTipoDocumento())
+            .map(medicoMapper::toDto);
+    }
+
+    /**
      * Get one medico by id.
      *
      * @param id the id of the entity.
