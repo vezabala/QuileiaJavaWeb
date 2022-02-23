@@ -37,8 +37,8 @@ public class EspecialidadResourceIT {
     private static final String DEFAULT_NOMBRE_ESPECIALIDAD = "AAAAAAAAAA";
     private static final String UPDATED_NOMBRE_ESPECIALIDAD = "BBBBBBBBBB";
 
-    private static final Estado DEFAULT_ESTADO_TIPO_DOCUMENTO = Estado.ACTIVO;
-    private static final Estado UPDATED_ESTADO_TIPO_DOCUMENTO = Estado.INACTIVO;
+    private static final Estado DEFAULT_ESTADO_ESPECIALIDAD = Estado.ACTIVO;
+    private static final Estado UPDATED_ESTADO_ESPECIALIDAD = Estado.INACTIVO;
 
     @Autowired
     private EspecialidadRepository especialidadRepository;
@@ -66,7 +66,7 @@ public class EspecialidadResourceIT {
     public static Especialidad createEntity(EntityManager em) {
         Especialidad especialidad = new Especialidad()
             .nombreEspecialidad(DEFAULT_NOMBRE_ESPECIALIDAD)
-            .estadoTipoDocumento(DEFAULT_ESTADO_TIPO_DOCUMENTO);
+            .estadoEspecialidad(DEFAULT_ESTADO_ESPECIALIDAD);
         return especialidad;
     }
     /**
@@ -78,7 +78,7 @@ public class EspecialidadResourceIT {
     public static Especialidad createUpdatedEntity(EntityManager em) {
         Especialidad especialidad = new Especialidad()
             .nombreEspecialidad(UPDATED_NOMBRE_ESPECIALIDAD)
-            .estadoTipoDocumento(UPDATED_ESTADO_TIPO_DOCUMENTO);
+            .estadoEspecialidad(UPDATED_ESTADO_ESPECIALIDAD);
         return especialidad;
     }
 
@@ -104,7 +104,7 @@ public class EspecialidadResourceIT {
         assertThat(especialidadList).hasSize(databaseSizeBeforeCreate + 1);
         Especialidad testEspecialidad = especialidadList.get(especialidadList.size() - 1);
         assertThat(testEspecialidad.getNombreEspecialidad()).isEqualTo(DEFAULT_NOMBRE_ESPECIALIDAD);
-        assertThat(testEspecialidad.getEstadoTipoDocumento()).isEqualTo(DEFAULT_ESTADO_TIPO_DOCUMENTO);
+        assertThat(testEspecialidad.getEstadoEspecialidad()).isEqualTo(DEFAULT_ESTADO_ESPECIALIDAD);
     }
 
     @Test
@@ -149,10 +149,10 @@ public class EspecialidadResourceIT {
 
     @Test
     @Transactional
-    public void checkEstadoTipoDocumentoIsRequired() throws Exception {
+    public void checkEstadoEspecialidadIsRequired() throws Exception {
         int databaseSizeBeforeTest = especialidadRepository.findAll().size();
         // set the field null
-        especialidad.setEstadoTipoDocumento(null);
+        especialidad.setEstadoEspecialidad(null);
 
         // Create the Especialidad, which fails.
         EspecialidadDTO especialidadDTO = especialidadMapper.toDto(especialidad);
@@ -178,7 +178,7 @@ public class EspecialidadResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(especialidad.getId().intValue())))
             .andExpect(jsonPath("$.[*].nombreEspecialidad").value(hasItem(DEFAULT_NOMBRE_ESPECIALIDAD)))
-            .andExpect(jsonPath("$.[*].estadoTipoDocumento").value(hasItem(DEFAULT_ESTADO_TIPO_DOCUMENTO.toString())));
+            .andExpect(jsonPath("$.[*].estadoEspecialidad").value(hasItem(DEFAULT_ESTADO_ESPECIALIDAD.toString())));
     }
     
     @Test
@@ -193,7 +193,7 @@ public class EspecialidadResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(especialidad.getId().intValue()))
             .andExpect(jsonPath("$.nombreEspecialidad").value(DEFAULT_NOMBRE_ESPECIALIDAD))
-            .andExpect(jsonPath("$.estadoTipoDocumento").value(DEFAULT_ESTADO_TIPO_DOCUMENTO.toString()));
+            .andExpect(jsonPath("$.estadoEspecialidad").value(DEFAULT_ESTADO_ESPECIALIDAD.toString()));
     }
 
     @Test
@@ -218,7 +218,7 @@ public class EspecialidadResourceIT {
         em.detach(updatedEspecialidad);
         updatedEspecialidad
             .nombreEspecialidad(UPDATED_NOMBRE_ESPECIALIDAD)
-            .estadoTipoDocumento(UPDATED_ESTADO_TIPO_DOCUMENTO);
+            .estadoEspecialidad(UPDATED_ESTADO_ESPECIALIDAD);
         EspecialidadDTO especialidadDTO = especialidadMapper.toDto(updatedEspecialidad);
 
         restEspecialidadMockMvc.perform(put("/api/especialidads")
@@ -231,7 +231,7 @@ public class EspecialidadResourceIT {
         assertThat(especialidadList).hasSize(databaseSizeBeforeUpdate);
         Especialidad testEspecialidad = especialidadList.get(especialidadList.size() - 1);
         assertThat(testEspecialidad.getNombreEspecialidad()).isEqualTo(UPDATED_NOMBRE_ESPECIALIDAD);
-        assertThat(testEspecialidad.getEstadoTipoDocumento()).isEqualTo(UPDATED_ESTADO_TIPO_DOCUMENTO);
+        assertThat(testEspecialidad.getEstadoEspecialidad()).isEqualTo(UPDATED_ESTADO_ESPECIALIDAD);
     }
 
     @Test

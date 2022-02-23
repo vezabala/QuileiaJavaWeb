@@ -18,7 +18,7 @@
             <column name="nombre_especialidad" type="varchar(255)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_especialidad_nombre_especialidad" />
             </column>
-            <column name="estado_tipo_documento" type="varchar(255)">
+            <column name="estado_especialidad" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
@@ -45,7 +45,7 @@
                   tableName="especialidad">
             <column name="id" type="numeric"/>
             <column name="nombre_especialidad" type="string"/>
-            <column name="estado_tipo_documento" type="string"/>
+            <column name="estado_especialidad" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

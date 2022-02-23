@@ -24,7 +24,7 @@
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="nombreEspecialidad"><span jhiTranslate="quileiaJavaWebApp.especialidad.nombreEspecialidad">Nombre Especialidad</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="estadoTipoDocumento"><span jhiTranslate="quileiaJavaWebApp.especialidad.estadoTipoDocumento">Estado Tipo Documento</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="estadoEspecialidad"><span jhiTranslate="quileiaJavaWebApp.especialidad.estadoEspecialidad">Estado Especialidad</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -32,7 +32,7 @@
                 <tr *ngFor="let especialidad of especialidads ;trackBy: trackId">
                     <td><a [routerLink]="['/especialidad', especialidad.id, 'view']">{{ especialidad.id }}</a></td>
                     <td>{{ especialidad.nombreEspecialidad }}</td>
-                    <td jhiTranslate="{{ 'quileiaJavaWebApp.Estado.' + especialidad.estadoTipoDocumento }}">{{ especialidad.estadoTipoDocumento }}</td>
+                    <td jhiTranslate="{{ 'quileiaJavaWebApp.Estado.' + especialidad.estadoEspecialidad }}">{{ especialidad.estadoEspecialidad }}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

@@ -17,7 +17,7 @@ public class EspecialidadDTO implements Serializable {
     private String nombreEspecialidad;
 
     @NotNull
-    private Estado estadoTipoDocumento;
+    private Estado estadoEspecialidad;
 
     
     public Long getId() {
@@ -36,12 +36,12 @@ public class EspecialidadDTO implements Serializable {
         this.nombreEspecialidad = nombreEspecialidad;
     }
 
-    public Estado getEstadoTipoDocumento() {
-        return estadoTipoDocumento;
+    public Estado getEstadoEspecialidad() {
+        return estadoEspecialidad;
     }
 
-    public void setEstadoTipoDocumento(Estado estadoTipoDocumento) {
-        this.estadoTipoDocumento = estadoTipoDocumento;
+    public void setEstadoEspecialidad(Estado estadoEspecialidad) {
+        this.estadoEspecialidad = estadoEspecialidad;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class EspecialidadDTO implements Serializable {
         return "EspecialidadDTO{" +
             "id=" + getId() +
             ", nombreEspecialidad='" + getNombreEspecialidad() + "'" +
-            ", estadoTipoDocumento='" + getEstadoTipoDocumento() + "'" +
+            ", estadoEspecialidad='" + getEstadoEspecialidad() + "'" +
             "}";
     }
 }

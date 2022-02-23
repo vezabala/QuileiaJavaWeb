@@ -12,7 +12,7 @@
             "fieldValidateRulesMaxlength": "255"
         },
         {
-            "fieldName": "estadoTipoDocumento",
+            "fieldName": "estadoEspecialidad",
             "fieldType": "Estado",
             "fieldValues": "ACTIVO,INACTIVO",
             "fieldValidateRules": [
@@ -44,5 +44,7 @@
     "readOnly": false,
     "embedded": false,
     "clientRootFolder": "",
-    "applications": "*"
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

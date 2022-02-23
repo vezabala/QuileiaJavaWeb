@@ -18,7 +18,7 @@ export class EspecialidadUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     nombreEspecialidad: [null, [Validators.required, Validators.maxLength(255)]],
-    estadoTipoDocumento: [null, [Validators.required]]
+    estadoEspecialidad: [null, [Validators.required]]
   });
 
   constructor(protected especialidadService: EspecialidadService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -33,7 +33,7 @@ export class EspecialidadUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: especialidad.id,
       nombreEspecialidad: especialidad.nombreEspecialidad,
-      estadoTipoDocumento: especialidad.estadoTipoDocumento
+      estadoEspecialidad: especialidad.estadoEspecialidad
     });
   }
 
@@ -56,7 +56,7 @@ export class EspecialidadUpdateComponent implements OnInit {
       ...new Especialidad(),
       id: this.editForm.get(['id'])!.value,
       nombreEspecialidad: this.editForm.get(['nombreEspecialidad'])!.value,
-      estadoTipoDocumento: this.editForm.get(['estadoTipoDocumento'])!.value
+      estadoEspecialidad: this.editForm.get(['estadoEspecialidad'])!.value
     };
   }
 

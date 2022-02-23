@@ -32,8 +32,8 @@ public class Especialidad implements Serializable {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado_tipo_documento", nullable = false)
-    private Estado estadoTipoDocumento;
+    @Column(name = "estado_especialidad", nullable = false)
+    private Estado estadoEspecialidad;
 
     @OneToMany(mappedBy = "especialidad")
     private Set<Medico> medicos = new HashSet<>();
@@ -63,17 +63,17 @@ public class Especialidad implements Serializable {
         this.nombreEspecialidad = nombreEspecialidad;
     }
 
-    public Estado getEstadoTipoDocumento() {
-        return estadoTipoDocumento;
+    public Estado getEstadoEspecialidad() {
+        return estadoEspecialidad;
     }
 
-    public Especialidad estadoTipoDocumento(Estado estadoTipoDocumento) {
-        this.estadoTipoDocumento = estadoTipoDocumento;
+    public Especialidad estadoEspecialidad(Estado estadoEspecialidad) {
+        this.estadoEspecialidad = estadoEspecialidad;
         return this;
     }
 
-    public void setEstadoTipoDocumento(Estado estadoTipoDocumento) {
-        this.estadoTipoDocumento = estadoTipoDocumento;
+    public void setEstadoEspecialidad(Estado estadoEspecialidad) {
+        this.estadoEspecialidad = estadoEspecialidad;
     }
 
     public Set<Medico> getMedicos() {
@@ -148,7 +148,7 @@ public class Especialidad implements Serializable {
         return "Especialidad{" +
             "id=" + getId() +
             ", nombreEspecialidad='" + getNombreEspecialidad() + "'" +
-            ", estadoTipoDocumento='" + getEstadoTipoDocumento() + "'" +
+            ", estadoEspecialidad='" + getEstadoEspecialidad() + "'" +
             "}";
     }
 }

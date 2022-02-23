@@ -17,7 +17,7 @@
         "title": "Especialidad"
       },
       "nombreEspecialidad": "Nombre Especialidad",
-      "estadoTipoDocumento": "Estado Tipo Documento",
+      "estadoEspecialidad": "Estado Especialidad",
       "medicos": "Medicos",
       "citas": "Citas"
     }

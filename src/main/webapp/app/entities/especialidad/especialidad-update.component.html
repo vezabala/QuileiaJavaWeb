@@ -28,14 +28,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="quileiaJavaWebApp.especialidad.estadoTipoDocumento" for="field_estadoTipoDocumento">Estado Tipo Documento</label>
-                    <select class="form-control" name="estadoTipoDocumento" formControlName="estadoTipoDocumento" id="field_estadoTipoDocumento">
+                    <label class="form-control-label" jhiTranslate="quileiaJavaWebApp.especialidad.estadoEspecialidad" for="field_estadoEspecialidad">Estado Especialidad</label>
+                    <select class="form-control" name="estadoEspecialidad" formControlName="estadoEspecialidad" id="field_estadoEspecialidad">
                         <option value="ACTIVO">{{ 'quileiaJavaWebApp.Estado.ACTIVO' | translate }}</option>
                         <option value="INACTIVO">{{ 'quileiaJavaWebApp.Estado.INACTIVO' | translate }}</option>
                     </select>
-                    <div *ngIf="editForm.get('estadoTipoDocumento')!.invalid && (editForm.get('estadoTipoDocumento')!.dirty || editForm.get('estadoTipoDocumento')!.touched)">
+                    <div *ngIf="editForm.get('estadoEspecialidad')!.invalid && (editForm.get('estadoEspecialidad')!.dirty || editForm.get('estadoEspecialidad')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('estadoTipoDocumento')?.errors?.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('estadoEspecialidad')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>

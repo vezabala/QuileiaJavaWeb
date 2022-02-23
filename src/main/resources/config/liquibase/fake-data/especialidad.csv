@@ -1,4 +1,4 @@
-id;nombre_especialidad;estado_tipo_documento
+id;nombre_especialidad;estado_especialidad
 1;Medicina general;ACTIVO
 2;Endocrinología;ACTIVO
 3;Urología;ACTIVO
