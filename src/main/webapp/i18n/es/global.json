@@ -143,6 +143,7 @@
     "idpacienteexists": "Ya existe una identificacion con el mismo tipo de documento en la entidad {{ entityName }}",
     "idmedicoexists": "Ya existe una identificacion con el mismo tipo de documento en la entidad {{ entityName }}",
     "horaexists": "ya existe esta hora la entidad {{ entityName }}",
+    "idmedicofranjaexists": "Ya esta asignado el doctor a esta franja horaria en la entidad {{ entityName }}",
     "idnull": "ID inválido",
     "file": {
       "could.not.extract": "Could not extract file",
