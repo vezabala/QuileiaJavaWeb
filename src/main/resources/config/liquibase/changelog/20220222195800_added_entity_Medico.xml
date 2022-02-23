@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    
+
     <!--
         Added the entity Medico.
     -->
@@ -38,6 +38,8 @@
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <addUniqueConstraint tableName="medico" constraintName="uk_idenm_tipdoc" columnNames="identificacion,tipo_documento_id"/>
+        <addUniqueConstraint tableName="medico" constraintName="uk_idenm_franja" columnNames="identificacion,franja_horaria_id"/>
     </changeSet>
 
     <changeSet id="20220222195800-1-relations" author="jhipster">
