@@ -57,6 +57,9 @@ public class FranjaHorariaResource {
         if (franjaHorariaDTO.getId() != null) {
             throw new BadRequestAlertException("A new franjaHoraria cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (franjaHorariaService.findByFranja(franjaHorariaDTO.getFranja()).isPresent()) {
+            throw new BadRequestAlertException("A new franja horaria cannot already have an FRANJA", ENTITY_NAME, "franjaexists");
+        }
         FranjaHorariaDTO result = franjaHorariaService.save(franjaHorariaDTO);
         return ResponseEntity.created(new URI("/api/franja-horarias/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -78,6 +81,10 @@ public class FranjaHorariaResource {
         if (franjaHorariaDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        Optional<FranjaHorariaDTO> franjaHorariaTemp = franjaHorariaService.findByFranja(franjaHorariaDTO.getFranja());
+        if (franjaHorariaTemp.isPresent() && !franjaHorariaTemp.get().getId().equals(franjaHorariaDTO.getId())) {
+            throw new BadRequestAlertException("A new franja horaria cannot already have an FRANJA", ENTITY_NAME, "franjaexists");
+        }
         FranjaHorariaDTO result = franjaHorariaService.save(franjaHorariaDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, franjaHorariaDTO.getId().toString()))
@@ -96,6 +103,19 @@ public class FranjaHorariaResource {
         Page<FranjaHorariaDTO> page = franjaHorariaService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * Get all the franja horaria by estado.
+     *
+     * @param estado estado to search
+     * @return the list of entities.
+     */
+    @GetMapping("/franja-horarias/estado/{estado}")
+    public ResponseEntity<List<FranjaHorariaDTO>> getAllFranjaHorariasByEstado(@PathVariable String estado) {
+        log.debug("REST request to get a page of FranjaHoraria");
+        List<FranjaHorariaDTO> page = franjaHorariaService.findByEstado(estado);
+        return ResponseEntity.ok().body(page);
     }
 
     /**

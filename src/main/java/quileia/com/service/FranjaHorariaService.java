@@ -1,6 +1,7 @@
 package quileia.com.service;
 
 import quileia.com.domain.FranjaHoraria;
+import quileia.com.domain.enumeration.Estado;
 import quileia.com.repository.FranjaHorariaRepository;
 import quileia.com.service.dto.FranjaHorariaDTO;
 import quileia.com.service.mapper.FranjaHorariaMapper;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -43,6 +45,31 @@ public class FranjaHorariaService {
         FranjaHoraria franjaHoraria = franjaHorariaMapper.toEntity(franjaHorariaDTO);
         franjaHoraria = franjaHorariaRepository.save(franjaHoraria);
         return franjaHorariaMapper.toDto(franjaHoraria);
+    }
+
+    /**
+     * Get all the franjas horarias by Estado.
+     *
+     * @param estado estado to search
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public List<FranjaHorariaDTO> findByEstado(String estado){
+        log.debug("Request to get all franja horaria by estado");
+        return franjaHorariaMapper.toDto(franjaHorariaRepository.findByEstadoFranjaHoraria(Estado.valueOf(estado)));
+    }
+
+    /**
+     * Get one franja horaria by franja.
+     *
+     * @param franja the franja horaria of the entity
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<FranjaHorariaDTO> findByFranja(String franja) {
+        log.debug("Request to get franja horaria : {}", franja);
+        return franjaHorariaRepository.findByFranja(franja)
+            .map(franjaHorariaMapper::toDto);
     }
 
     /**
