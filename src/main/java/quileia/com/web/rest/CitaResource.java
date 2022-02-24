@@ -57,6 +57,15 @@ public class CitaResource {
         if (citaDTO.getId() != null) {
             throw new BadRequestAlertException("A new cita cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (citaService.findByMedicosAndHorarioAndFecha(citaDTO).isPresent()) {
+            throw new BadRequestAlertException("A new cita cannot already have a MEDICO and HORARIO and FECHA", ENTITY_NAME, "idmedicohorariofechaexist");
+        }
+        if (citaService.findByPacientesAndHorarioAndFecha(citaDTO).isPresent()) {
+            throw new BadRequestAlertException("A new cita cannot already have a PACIENTE and HORARIO and FECHA", ENTITY_NAME, "idpacientehorariofechaexist");
+        }
+        if (citaService.findByPacientesAndMedicos(citaDTO).isPresent()) {
+            throw new BadRequestAlertException("A new cita cannot already have a PACIENTE and MEDICO", ENTITY_NAME, "idpacientemedicoexist");
+        }
         CitaDTO result = citaService.save(citaDTO);
         return ResponseEntity.created(new URI("/api/citas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -77,6 +86,21 @@ public class CitaResource {
         log.debug("REST request to update Cita : {}", citaDTO);
         if (citaDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        Optional<CitaDTO> citaDTOtemp = citaService
+            .findByMedicosAndHorarioAndFecha(citaDTO);
+        if (citaDTOtemp.isPresent() && (!citaDTOtemp.get().getId().equals(citaDTO.getId()))) {
+            throw new BadRequestAlertException("A new cita cannot already have a MEDICO and HORARIO and FECHA", ENTITY_NAME, "idmedicohorariofechaexist");
+        }
+        Optional<CitaDTO> citaDTOtemp2 = citaService
+            .findByPacientesAndHorarioAndFecha(citaDTO);
+        if (citaDTOtemp2.isPresent() && (!citaDTOtemp2.get().getId().equals(citaDTO.getId()))) {
+            throw new BadRequestAlertException("A new cita cannot already have a PACIENTE and HORARIO and FECHA", ENTITY_NAME, "idpacientehorariofechaexist");
+        }
+        Optional<CitaDTO> citaDTOtemp3 = citaService
+            .findByPacientesAndMedicos(citaDTO);
+        if (citaDTOtemp3.isPresent() && (!citaDTOtemp3.get().getId().equals(citaDTO.getId()))) {
+            throw new BadRequestAlertException("A new cita cannot already have a PACIENTE and MEDICO", ENTITY_NAME, "idpacientemedicoexist");
         }
         CitaDTO result = citaService.save(citaDTO);
         return ResponseEntity.ok()
