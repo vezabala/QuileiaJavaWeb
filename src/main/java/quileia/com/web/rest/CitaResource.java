@@ -111,6 +111,13 @@ public class CitaResource {
         if (citaDTOtemp3.isPresent() && (!citaDTOtemp3.get().getId().equals(citaDTO.getId()))) {
             throw new BadRequestAlertException("A new cita cannot already have a PACIENTE and MEDICO", ENTITY_NAME, "idpacientemedicoexist");
         }
+        Long citaDTOTemp4= citaDTO.getMedicosId();
+        if (citaDTOTemp4 != null) {
+            Optional<MedicoDTO> medicoDTO1 = medicoService.findOne(citaDTO.getMedicosId());
+            if(citaDTOTemp4 == medicoDTO1.get().getId() && citaDTO.getEspecialidadId() != medicoDTO1.get().getEspecialidadId()) {
+                throw new BadRequestAlertException("A new cita cannot already have a MEDICO and ESPECIALIDAD", ENTITY_NAME, "idmedicoESPEexist");
+            }
+        }
         CitaDTO result = citaService.save(citaDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, citaDTO.getId().toString()))
