@@ -1,12 +1,9 @@
 package quileia.com.repository;
 
-import quileia.com.domain.Cita;
+import quileia.com.domain.*;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
-import quileia.com.domain.Horario;
-import quileia.com.domain.Medico;
-import quileia.com.domain.Paciente;
 
 import java.time.LocalDate;
 import java.util.Optional;

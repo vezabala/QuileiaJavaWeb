@@ -1,6 +1,8 @@
 package quileia.com.web.rest;
 
 import quileia.com.service.CitaService;
+import quileia.com.service.MedicoService;
+import quileia.com.service.dto.MedicoDTO;
 import quileia.com.web.rest.errors.BadRequestAlertException;
 import quileia.com.service.dto.CitaDTO;
 
@@ -13,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +40,11 @@ public class CitaResource {
     private String applicationName;
 
     private final CitaService citaService;
+    private final MedicoService medicoService;
 
-    public CitaResource(CitaService citaService) {
+    public CitaResource(CitaService citaService, MedicoService medicoService) {
         this.citaService = citaService;
+        this.medicoService = medicoService;
     }
 
     /**
@@ -65,6 +68,12 @@ public class CitaResource {
         }
         if (citaService.findByPacientesAndMedicos(citaDTO).isPresent()) {
             throw new BadRequestAlertException("A new cita cannot already have a PACIENTE and MEDICO", ENTITY_NAME, "idpacientemedicoexist");
+        }
+        if (citaDTO.getMedicosId() != null) {
+            Optional<MedicoDTO> medicoDTO1 = medicoService.findOne(citaDTO.getMedicosId());
+            if(citaDTO.getMedicosId()== medicoDTO1.get().getId() && citaDTO.getEspecialidadId() != medicoDTO1.get().getEspecialidadId()) {
+                throw new BadRequestAlertException("A new cita cannot already have a MEDICO and ESPECIALIDAD", ENTITY_NAME, "idmedicoESPEexist");
+            }
         }
         CitaDTO result = citaService.save(citaDTO);
         return ResponseEntity.created(new URI("/api/citas/" + result.getId()))
