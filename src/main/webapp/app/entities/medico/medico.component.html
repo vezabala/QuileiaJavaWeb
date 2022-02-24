@@ -26,7 +26,7 @@
                     <th scope="col"  jhiSortBy="nombreCompleto"><span jhiTranslate="quileiaJavaWebApp.medico.nombreCompleto">Nombre Completo</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="identificacion"><span jhiTranslate="quileiaJavaWebApp.medico.identificacion">Identificacion</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="tarjetaProfesional"><span jhiTranslate="quileiaJavaWebApp.medico.tarjetaProfesional">Tarjeta Profesional</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="anosExperiencia"><span jhiTranslate="quileiaJavaWebApp.medico.anosExperiencia">Anos Experiencia</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="anosDeExperiencia"><span jhiTranslate="quileiaJavaWebApp.medico.anosDeExperiencia">Anos De Experiencia</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="tipoDocumentoNombreDocumento"><span jhiTranslate="quileiaJavaWebApp.medico.tipoDocumento">Tipo Documento</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="especialidadNombreEspecialidad"><span jhiTranslate="quileiaJavaWebApp.medico.especialidad">Especialidad</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="franjaHorariaFranja"><span jhiTranslate="quileiaJavaWebApp.medico.franjaHoraria">Franja Horaria</span> <fa-icon icon="sort"></fa-icon></th>
@@ -39,7 +39,7 @@
                     <td>{{ medico.nombreCompleto }}</td>
                     <td>{{ medico.identificacion }}</td>
                     <td>{{ medico.tarjetaProfesional }}</td>
-                    <td>{{ medico.anosExperiencia }}</td>
+                    <td>{{ medico.anosDeExperiencia }}</td>
                     <td>
                         <div *ngIf="medico.tipoDocumentoId">
                             <a [routerLink]="['/tipo-documento', medico.tipoDocumentoId , 'view']" >{{ medico.tipoDocumentoNombreDocumento }}</a>

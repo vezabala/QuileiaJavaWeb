@@ -39,9 +39,8 @@ public class Medico implements Serializable {
     @Column(name = "tarjeta_profesional", length = 100, nullable = false, unique = true)
     private String tarjetaProfesional;
 
-    @NotNull
-    @Column(name = "anos_experiencia", nullable = false)
-    private Boolean anosExperiencia;
+    @Column(name = "anos_de_experiencia")
+    private Double anosDeExperiencia;
 
     @OneToMany(mappedBy = "medicos")
     private Set<Cita> citas = new HashSet<>();
@@ -109,17 +108,17 @@ public class Medico implements Serializable {
         this.tarjetaProfesional = tarjetaProfesional;
     }
 
-    public Boolean isAnosExperiencia() {
-        return anosExperiencia;
+    public Double getAnosDeExperiencia() {
+        return anosDeExperiencia;
     }
 
-    public Medico anosExperiencia(Boolean anosExperiencia) {
-        this.anosExperiencia = anosExperiencia;
+    public Medico anosDeExperiencia(Double anosDeExperiencia) {
+        this.anosDeExperiencia = anosDeExperiencia;
         return this;
     }
 
-    public void setAnosExperiencia(Boolean anosExperiencia) {
-        this.anosExperiencia = anosExperiencia;
+    public void setAnosDeExperiencia(Double anosDeExperiencia) {
+        this.anosDeExperiencia = anosDeExperiencia;
     }
 
     public Set<Cita> getCitas() {
@@ -210,7 +209,7 @@ public class Medico implements Serializable {
             ", nombreCompleto='" + getNombreCompleto() + "'" +
             ", identificacion='" + getIdentificacion() + "'" +
             ", tarjetaProfesional='" + getTarjetaProfesional() + "'" +
-            ", anosExperiencia='" + isAnosExperiencia() + "'" +
+            ", anosDeExperiencia=" + getAnosDeExperiencia() +
             "}";
     }
 }

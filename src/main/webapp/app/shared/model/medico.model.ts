@@ -5,7 +5,7 @@ export interface IMedico {
   nombreCompleto?: string;
   identificacion?: string;
   tarjetaProfesional?: string;
-  anosExperiencia?: boolean;
+  anosDeExperiencia?: number;
   citas?: ICita[];
   tipoDocumentoNombreDocumento?: string;
   tipoDocumentoId?: number;
@@ -21,7 +21,7 @@ export class Medico implements IMedico {
     public nombreCompleto?: string,
     public identificacion?: string,
     public tarjetaProfesional?: string,
-    public anosExperiencia?: boolean,
+    public anosDeExperiencia?: number,
     public citas?: ICita[],
     public tipoDocumentoNombreDocumento?: string,
     public tipoDocumentoId?: number,
@@ -29,7 +29,5 @@ export class Medico implements IMedico {
     public especialidadId?: number,
     public franjaHorariaFranja?: string,
     public franjaHorariaId?: number
-  ) {
-    this.anosExperiencia = this.anosExperiencia || false;
-  }
+  ) {}
 }

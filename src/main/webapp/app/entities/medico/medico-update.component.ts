@@ -31,7 +31,7 @@ export class MedicoUpdateComponent implements OnInit {
     nombreCompleto: [null, [Validators.required, Validators.maxLength(255)]],
     identificacion: [null, [Validators.required, Validators.maxLength(100)]],
     tarjetaProfesional: [null, [Validators.required, Validators.maxLength(100)]],
-    anosExperiencia: [null, [Validators.required]],
+    anosDeExperiencia: [],
     tipoDocumentoId: [null, Validators.required],
     especialidadId: [null, Validators.required],
     franjaHorariaId: [null, Validators.required]
@@ -64,7 +64,7 @@ export class MedicoUpdateComponent implements OnInit {
       nombreCompleto: medico.nombreCompleto,
       identificacion: medico.identificacion,
       tarjetaProfesional: medico.tarjetaProfesional,
-      anosExperiencia: medico.anosExperiencia,
+      anosDeExperiencia: medico.anosDeExperiencia,
       tipoDocumentoId: medico.tipoDocumentoId,
       especialidadId: medico.especialidadId,
       franjaHorariaId: medico.franjaHorariaId
@@ -92,7 +92,7 @@ export class MedicoUpdateComponent implements OnInit {
       nombreCompleto: this.editForm.get(['nombreCompleto'])!.value,
       identificacion: this.editForm.get(['identificacion'])!.value,
       tarjetaProfesional: this.editForm.get(['tarjetaProfesional'])!.value,
-      anosExperiencia: this.editForm.get(['anosExperiencia'])!.value,
+      anosDeExperiencia: this.editForm.get(['anosDeExperiencia'])!.value,
       tipoDocumentoId: this.editForm.get(['tipoDocumentoId'])!.value,
       especialidadId: this.editForm.get(['especialidadId'])!.value,
       franjaHorariaId: this.editForm.get(['franjaHorariaId'])!.value

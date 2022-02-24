@@ -60,15 +60,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="quileiaJavaWebApp.medico.anosExperiencia" for="field_anosExperiencia">Anos Experiencia</label>
-                    <input type="checkbox" class="form-control" name="anosExperiencia" id="field_anosExperiencia"
-                           formControlName="anosExperiencia"/>
-                    <div *ngIf="editForm.get('anosExperiencia')!.invalid && (editForm.get('anosExperiencia')!.dirty || editForm.get('anosExperiencia')!.touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('anosExperiencia')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
+                    <label class="form-control-label" jhiTranslate="quileiaJavaWebApp.medico.anosDeExperiencia" for="field_anosDeExperiencia">Anos De Experiencia</label>
+                    <input type="number" class="form-control" name="anosDeExperiencia" id="field_anosDeExperiencia"
+                           formControlName="anosDeExperiencia"/>
                 </div>
 
                 <div class="form-group">
