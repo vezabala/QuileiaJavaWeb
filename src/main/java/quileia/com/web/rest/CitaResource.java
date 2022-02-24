@@ -75,6 +75,12 @@ public class CitaResource {
                 throw new BadRequestAlertException("A new cita cannot already have a MEDICO and ESPECIALIDAD", ENTITY_NAME, "idmedicoESPEexist");
             }
         }
+        if (citaDTO.getMedicosId() != null) {
+            Optional<MedicoDTO> medicoDTO2 = medicoService.findOne(citaDTO.getMedicosId());
+            if(citaDTO.getMedicosId()== medicoDTO2.get().getId() && citaDTO.getFranjaHorariaId() != medicoDTO2.get().getFranjaHorariaId()) {
+                throw new BadRequestAlertException("A new cita cannot already have a MEDICO and FRANJAHORARIA", ENTITY_NAME, "idmedicoFRANJAexist");
+            }
+        }
         CitaDTO result = citaService.save(citaDTO);
         return ResponseEntity.created(new URI("/api/citas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -118,6 +124,14 @@ public class CitaResource {
                 throw new BadRequestAlertException("A new cita cannot already have a MEDICO and ESPECIALIDAD", ENTITY_NAME, "idmedicoESPEexist");
             }
         }
+        Long citaDTOTemp5= citaDTO.getMedicosId();
+        if (citaDTOTemp5!= null) {
+            Optional<MedicoDTO> medicoDTO2 = medicoService.findOne(citaDTO.getMedicosId());
+            if(citaDTOTemp5 == medicoDTO2.get().getId() && citaDTO.getFranjaHorariaId() != medicoDTO2.get().getFranjaHorariaId()) {
+                throw new BadRequestAlertException("A new cita cannot already have a MEDICO and FRANJAHORARIA", ENTITY_NAME, "idmedicoFRANJAexist");
+            }
+        }
+
         CitaDTO result = citaService.save(citaDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, citaDTO.getId().toString()))

@@ -148,6 +148,7 @@
     "idpacientehorariofechaexist": "Ya tiene cita asignada el paciente a esta hora y en esta fecha",
     "idpacientemedicoexist": "Ya tiene cita asignada el paciente con este doctor",
     "idmedicoESPEexist": "El doctor no trabaja en esta especialidad",
+    "idmedicoFRANJAexist": "El doctor no esta trabajando en esta franja horaria",
     "idnull": "ID inválido",
     "file": {
       "could.not.extract": "Could not extract file",
