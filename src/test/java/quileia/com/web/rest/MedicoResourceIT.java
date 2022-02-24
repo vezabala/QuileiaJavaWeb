@@ -45,8 +45,8 @@ public class MedicoResourceIT {
     private static final String DEFAULT_TARJETA_PROFESIONAL = "AAAAAAAAAA";
     private static final String UPDATED_TARJETA_PROFESIONAL = "BBBBBBBBBB";
 
-    private static final Boolean DEFAULT_ANOS_EXPERIENCIA = false;
-    private static final Boolean UPDATED_ANOS_EXPERIENCIA = true;
+    private static final Double DEFAULT_ANOS_DE_EXPERIENCIA = 1D;
+    private static final Double UPDATED_ANOS_DE_EXPERIENCIA = 2D;
 
     @Autowired
     private MedicoRepository medicoRepository;
@@ -76,7 +76,7 @@ public class MedicoResourceIT {
             .nombreCompleto(DEFAULT_NOMBRE_COMPLETO)
             .identificacion(DEFAULT_IDENTIFICACION)
             .tarjetaProfesional(DEFAULT_TARJETA_PROFESIONAL)
-            .anosExperiencia(DEFAULT_ANOS_EXPERIENCIA);
+            .anosDeExperiencia(DEFAULT_ANOS_DE_EXPERIENCIA);
         // Add required entity
         TipoDocumento tipoDocumento;
         if (TestUtil.findAll(em, TipoDocumento.class).isEmpty()) {
@@ -120,7 +120,7 @@ public class MedicoResourceIT {
             .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
             .identificacion(UPDATED_IDENTIFICACION)
             .tarjetaProfesional(UPDATED_TARJETA_PROFESIONAL)
-            .anosExperiencia(UPDATED_ANOS_EXPERIENCIA);
+            .anosDeExperiencia(UPDATED_ANOS_DE_EXPERIENCIA);
         // Add required entity
         TipoDocumento tipoDocumento;
         if (TestUtil.findAll(em, TipoDocumento.class).isEmpty()) {
@@ -178,7 +178,7 @@ public class MedicoResourceIT {
         assertThat(testMedico.getNombreCompleto()).isEqualTo(DEFAULT_NOMBRE_COMPLETO);
         assertThat(testMedico.getIdentificacion()).isEqualTo(DEFAULT_IDENTIFICACION);
         assertThat(testMedico.getTarjetaProfesional()).isEqualTo(DEFAULT_TARJETA_PROFESIONAL);
-        assertThat(testMedico.isAnosExperiencia()).isEqualTo(DEFAULT_ANOS_EXPERIENCIA);
+        assertThat(testMedico.getAnosDeExperiencia()).isEqualTo(DEFAULT_ANOS_DE_EXPERIENCIA);
     }
 
     @Test
@@ -261,25 +261,6 @@ public class MedicoResourceIT {
 
     @Test
     @Transactional
-    public void checkAnosExperienciaIsRequired() throws Exception {
-        int databaseSizeBeforeTest = medicoRepository.findAll().size();
-        // set the field null
-        medico.setAnosExperiencia(null);
-
-        // Create the Medico, which fails.
-        MedicoDTO medicoDTO = medicoMapper.toDto(medico);
-
-        restMedicoMockMvc.perform(post("/api/medicos")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(medicoDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Medico> medicoList = medicoRepository.findAll();
-        assertThat(medicoList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllMedicos() throws Exception {
         // Initialize the database
         medicoRepository.saveAndFlush(medico);
@@ -292,7 +273,7 @@ public class MedicoResourceIT {
             .andExpect(jsonPath("$.[*].nombreCompleto").value(hasItem(DEFAULT_NOMBRE_COMPLETO)))
             .andExpect(jsonPath("$.[*].identificacion").value(hasItem(DEFAULT_IDENTIFICACION)))
             .andExpect(jsonPath("$.[*].tarjetaProfesional").value(hasItem(DEFAULT_TARJETA_PROFESIONAL)))
-            .andExpect(jsonPath("$.[*].anosExperiencia").value(hasItem(DEFAULT_ANOS_EXPERIENCIA.booleanValue())));
+            .andExpect(jsonPath("$.[*].anosDeExperiencia").value(hasItem(DEFAULT_ANOS_DE_EXPERIENCIA.doubleValue())));
     }
     
     @Test
@@ -309,7 +290,7 @@ public class MedicoResourceIT {
             .andExpect(jsonPath("$.nombreCompleto").value(DEFAULT_NOMBRE_COMPLETO))
             .andExpect(jsonPath("$.identificacion").value(DEFAULT_IDENTIFICACION))
             .andExpect(jsonPath("$.tarjetaProfesional").value(DEFAULT_TARJETA_PROFESIONAL))
-            .andExpect(jsonPath("$.anosExperiencia").value(DEFAULT_ANOS_EXPERIENCIA.booleanValue()));
+            .andExpect(jsonPath("$.anosDeExperiencia").value(DEFAULT_ANOS_DE_EXPERIENCIA.doubleValue()));
     }
 
     @Test
@@ -336,7 +317,7 @@ public class MedicoResourceIT {
             .nombreCompleto(UPDATED_NOMBRE_COMPLETO)
             .identificacion(UPDATED_IDENTIFICACION)
             .tarjetaProfesional(UPDATED_TARJETA_PROFESIONAL)
-            .anosExperiencia(UPDATED_ANOS_EXPERIENCIA);
+            .anosDeExperiencia(UPDATED_ANOS_DE_EXPERIENCIA);
         MedicoDTO medicoDTO = medicoMapper.toDto(updatedMedico);
 
         restMedicoMockMvc.perform(put("/api/medicos")
@@ -351,7 +332,7 @@ public class MedicoResourceIT {
         assertThat(testMedico.getNombreCompleto()).isEqualTo(UPDATED_NOMBRE_COMPLETO);
         assertThat(testMedico.getIdentificacion()).isEqualTo(UPDATED_IDENTIFICACION);
         assertThat(testMedico.getTarjetaProfesional()).isEqualTo(UPDATED_TARJETA_PROFESIONAL);
-        assertThat(testMedico.isAnosExperiencia()).isEqualTo(UPDATED_ANOS_EXPERIENCIA);
+        assertThat(testMedico.getAnosDeExperiencia()).isEqualTo(UPDATED_ANOS_DE_EXPERIENCIA);
     }
 
     @Test

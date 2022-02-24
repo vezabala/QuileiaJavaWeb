@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-
+    
     <!--
         Added the entity Medico.
     -->
@@ -24,8 +24,8 @@
             <column name="tarjeta_profesional" type="varchar(100)">
                 <constraints nullable="false" unique="true" uniqueConstraintName="ux_medico_tarjeta_profesional" />
             </column>
-            <column name="anos_experiencia" type="boolean">
-                <constraints nullable="false" />
+            <column name="anos_de_experiencia" type="double">
+                <constraints nullable="true" />
             </column>
             <column name="tipo_documento_id" type="bigint">
                 <constraints nullable="false" />
@@ -64,7 +64,7 @@
             <column name="nombre_completo" type="string"/>
             <column name="identificacion" type="string"/>
             <column name="tarjeta_profesional" type="string"/>
-            <column name="anos_experiencia" type="boolean"/>
+            <column name="anos_de_experiencia" type="numeric"/>
             <column name="tipo_documento_id" type="numeric"/>
             <column name="especialidad_id" type="numeric"/>
             <column name="franja_horaria_id" type="numeric"/>

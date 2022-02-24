@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(MedicoService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Medico(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', false);
+      elemDefault = new Medico(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0);
     });
 
     describe('Service methods', () => {
@@ -57,7 +57,7 @@ describe('Service Tests', () => {
             nombreCompleto: 'BBBBBB',
             identificacion: 'BBBBBB',
             tarjetaProfesional: 'BBBBBB',
-            anosExperiencia: true
+            anosDeExperiencia: 1
           },
           elemDefault
         );
@@ -77,7 +77,7 @@ describe('Service Tests', () => {
             nombreCompleto: 'BBBBBB',
             identificacion: 'BBBBBB',
             tarjetaProfesional: 'BBBBBB',
-            anosExperiencia: true
+            anosDeExperiencia: 1
           },
           elemDefault
         );

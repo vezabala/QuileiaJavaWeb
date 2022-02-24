@@ -23,8 +23,7 @@ public class MedicoDTO implements Serializable {
     @Size(max = 100)
     private String tarjetaProfesional;
 
-    @NotNull
-    private Boolean anosExperiencia;
+    private Double anosDeExperiencia;
 
 
     private Long tipoDocumentoId;
@@ -71,12 +70,12 @@ public class MedicoDTO implements Serializable {
         this.tarjetaProfesional = tarjetaProfesional;
     }
 
-    public Boolean isAnosExperiencia() {
-        return anosExperiencia;
+    public Double getAnosDeExperiencia() {
+        return anosDeExperiencia;
     }
 
-    public void setAnosExperiencia(Boolean anosExperiencia) {
-        this.anosExperiencia = anosExperiencia;
+    public void setAnosDeExperiencia(Double anosDeExperiencia) {
+        this.anosDeExperiencia = anosDeExperiencia;
     }
 
     public Long getTipoDocumentoId() {
@@ -155,7 +154,7 @@ public class MedicoDTO implements Serializable {
             ", nombreCompleto='" + getNombreCompleto() + "'" +
             ", identificacion='" + getIdentificacion() + "'" +
             ", tarjetaProfesional='" + getTarjetaProfesional() + "'" +
-            ", anosExperiencia='" + isAnosExperiencia() + "'" +
+            ", anosDeExperiencia=" + getAnosDeExperiencia() +
             ", tipoDocumentoId=" + getTipoDocumentoId() +
             ", tipoDocumentoNombreDocumento='" + getTipoDocumentoNombreDocumento() + "'" +
             ", especialidadId=" + getEspecialidadId() +
