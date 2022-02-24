@@ -144,6 +144,12 @@
     "idmedicoexists": "Ya existe una identificacion con el mismo tipo de documento en la entidad {{ entityName }}",
     "horaexists": "ya existe esta hora la entidad {{ entityName }}",
     "idmedicofranjaexists": "Ya esta asignado el doctor a esta franja horaria en la entidad {{ entityName }}",
+    "idmedicohorariofechaexist": "Ya tiene cita asignada el doctor en esta hora y esta fecha, escoja otra hora o otra fecha",
+    "idpacientehorariofechaexist": "Ya tiene cita asignada el paciente a esta hora y en esta fecha",
+    "idpacientemedicoexist": "Ya tiene cita asignada el paciente con este doctor",
+    "idmedicoESPEexist": "El doctor no trabaja en esta especialidad",
+    "idmedicoFRANJAexist": "El doctor no esta trabajando en esta franja horaria",
+    "idhorarioFRANJAexist": "Esta hora no corresponde a la franja horaria selecionada",
     "idnull": "ID inválido",
     "file": {
       "could.not.extract": "Could not extract file",

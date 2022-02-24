@@ -59,6 +59,53 @@ public class CitaService {
     }
 
     /**
+     * get one cina by medico and horario
+     * @param citaDTO the DTO of medio
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<CitaDTO> findByMedicosAndHorarioAndFecha(CitaDTO citaDTO) {
+        log.debug("Request to get Cita : {}", citaDTO.getHorarioId() + ", "
+            + citaDTO.getMedicosId() + ", "
+            + citaDTO.getId());
+        return citaRepository.findByMedicosAndHorarioAndFecha(
+            citaMapper.toEntity(citaDTO).getMedicos(),
+            citaMapper.toEntity(citaDTO).getHorario(),
+            citaDTO.getFecha())
+            .map(citaMapper::toDto);
+    }
+    /**
+     * get one cina by paciente and horario
+     * @param citaDTO the DTO of medio
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<CitaDTO> findByPacientesAndHorarioAndFecha(CitaDTO citaDTO) {
+        log.debug("Request to get Cita : {}", citaDTO.getHorarioId() + ", "
+            + citaDTO.getPacientesId() + ", "
+            + citaDTO.getId());
+        return citaRepository.findByPacientesAndHorarioAndFecha(
+            citaMapper.toEntity(citaDTO).getPacientes(),
+            citaMapper.toEntity(citaDTO).getHorario(),
+            citaDTO.getFecha())
+            .map(citaMapper::toDto);
+    }
+    /**
+     * get one cina by paciente and medico
+     * @param citaDTO the DTO of medio
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<CitaDTO> findByPacientesAndMedicos(CitaDTO citaDTO) {
+        log.debug("Request to get Cita : {}", citaDTO.getMedicosId() + ", "
+            + citaDTO.getPacientesId());
+        return citaRepository.findByPacientesAndMedicos(
+            citaMapper.toEntity(citaDTO).getPacientes(),
+            citaMapper.toEntity(citaDTO).getMedicos())
+            .map(citaMapper::toDto);
+    }
+
+    /**
      * Get one cita by id.
      *
      * @param id the id of the entity.
