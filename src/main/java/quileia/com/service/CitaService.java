@@ -106,6 +106,19 @@ public class CitaService {
     }
 
     /**
+     * get one cina by paciente and medico
+     * @param citaDTO the DTO of medio
+     * @return the entity
+     */
+    @Transactional(readOnly = true)
+    public Optional<CitaDTO> findByMedicos(CitaDTO citaDTO) {
+        log.debug("Request to get Cita : {}", citaDTO.getMedicosId());
+        return citaRepository.findByMedicos(
+            citaMapper.toEntity(citaDTO).getMedicos())
+            .map(citaMapper::toDto);
+    }
+
+    /**
      * Get one cita by id.
      *
      * @param id the id of the entity.

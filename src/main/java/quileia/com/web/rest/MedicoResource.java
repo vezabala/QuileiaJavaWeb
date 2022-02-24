@@ -1,6 +1,8 @@
 package quileia.com.web.rest;
 
+import quileia.com.service.CitaService;
 import quileia.com.service.MedicoService;
+import quileia.com.service.dto.CitaDTO;
 import quileia.com.web.rest.errors.BadRequestAlertException;
 import quileia.com.service.dto.MedicoDTO;
 
@@ -13,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,9 +40,11 @@ public class MedicoResource {
     private String applicationName;
 
     private final MedicoService medicoService;
+    private final CitaService citaService;
 
-    public MedicoResource(MedicoService medicoService) {
+    public MedicoResource(MedicoService medicoService, CitaService citaService) {
         this.medicoService = medicoService;
+        this.citaService = citaService;
     }
 
     /**
@@ -91,6 +94,14 @@ public class MedicoResource {
         Optional<MedicoDTO> medicoTemp2 = medicoService.findByIdentificacionAndFranjaHoraria(medicoDTO);
         if (medicoTemp2.isPresent() && (!medicoTemp2.get().getId().equals(medicoDTO.getId()))) {
             throw new BadRequestAlertException("A new medico cannot already have an NUMERO DOCUMENTO and FRANJA HORARIA", ENTITY_NAME, "idmedicofranjaexists");
+        }
+        if (medicoDTO.getEspecialidadId() != null) {
+            CitaDTO citaDTO = new CitaDTO();
+            citaDTO.setMedicosId(medicoDTO.getId());
+            Optional<CitaDTO> citaDTO1 = citaService.findByMedicos(citaDTO);
+            if(medicoDTO.getId()== citaDTO1.get().getMedicosId() && medicoDTO.getEspecialidadId() != citaDTO1.get().getEspecialidadId()) {
+                throw new BadRequestAlertException("A new medico cannot already have diferent ESPECIALIDAD", ENTITY_NAME, "idmedicoESPEcitaexist1");
+            }
         }
         MedicoDTO result = medicoService.save(medicoDTO);
         return ResponseEntity.ok()
