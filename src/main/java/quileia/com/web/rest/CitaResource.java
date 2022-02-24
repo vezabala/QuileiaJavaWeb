@@ -1,7 +1,9 @@
 package quileia.com.web.rest;
 
 import quileia.com.service.CitaService;
+import quileia.com.service.HorarioService;
 import quileia.com.service.MedicoService;
+import quileia.com.service.dto.HorarioDTO;
 import quileia.com.service.dto.MedicoDTO;
 import quileia.com.web.rest.errors.BadRequestAlertException;
 import quileia.com.service.dto.CitaDTO;
@@ -41,10 +43,12 @@ public class CitaResource {
 
     private final CitaService citaService;
     private final MedicoService medicoService;
+    private final HorarioService horarioService;
 
-    public CitaResource(CitaService citaService, MedicoService medicoService) {
+    public CitaResource(CitaService citaService, MedicoService medicoService, HorarioService horarioService) {
         this.citaService = citaService;
         this.medicoService = medicoService;
+        this.horarioService = horarioService;
     }
 
     /**
@@ -79,6 +83,12 @@ public class CitaResource {
             Optional<MedicoDTO> medicoDTO2 = medicoService.findOne(citaDTO.getMedicosId());
             if(citaDTO.getMedicosId()== medicoDTO2.get().getId() && citaDTO.getFranjaHorariaId() != medicoDTO2.get().getFranjaHorariaId()) {
                 throw new BadRequestAlertException("A new cita cannot already have a MEDICO and FRANJAHORARIA", ENTITY_NAME, "idmedicoFRANJAexist");
+            }
+        }
+        if(citaDTO.getHorarioId()!= null){
+            Optional<HorarioDTO> horarioDTO1 = horarioService.findOne(citaDTO.getHorarioId());
+            if(citaDTO.getHorarioId() == horarioDTO1.get().getId() && citaDTO.getFranjaHorariaId() != horarioDTO1.get().getFranjaHorariaId()){
+                throw new BadRequestAlertException("A new cita cannot already have a HORARIO and FRANJAHORARIA", ENTITY_NAME, "idhorarioFRANJAexist");
             }
         }
         CitaDTO result = citaService.save(citaDTO);
@@ -129,6 +139,13 @@ public class CitaResource {
             Optional<MedicoDTO> medicoDTO2 = medicoService.findOne(citaDTO.getMedicosId());
             if(citaDTOTemp5 == medicoDTO2.get().getId() && citaDTO.getFranjaHorariaId() != medicoDTO2.get().getFranjaHorariaId()) {
                 throw new BadRequestAlertException("A new cita cannot already have a MEDICO and FRANJAHORARIA", ENTITY_NAME, "idmedicoFRANJAexist");
+            }
+        }
+        Long citaTemp6= citaDTO.getHorarioId();
+        if(citaTemp6!= null){
+            Optional<HorarioDTO> horarioDTO1 = horarioService.findOne(citaDTO.getHorarioId());
+            if(citaTemp6 == horarioDTO1.get().getId() && citaDTO.getFranjaHorariaId() != horarioDTO1.get().getFranjaHorariaId()){
+                throw new BadRequestAlertException("A new cita cannot already have a HORARIO and FRANJAHORARIA", ENTITY_NAME, "idhorarioFRANJAexist");
             }
         }
 
