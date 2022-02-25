@@ -1,7 +1,7 @@
 {
   "home": {
     "title": "Prueba Tecnica Quilea",
-    "subtitle": "Nota: Puede modificar las demas entidades ingresando a la cuenta: usuario: admin, contraseña: admin",
+    "subtitle": "Nota: Puede modificar las demás entidades ingresando a la cuenta: usuario: admin, contraseña: admin",
     "logged": {
       "message": "Está conectado como \"{{username}}\"."
     },

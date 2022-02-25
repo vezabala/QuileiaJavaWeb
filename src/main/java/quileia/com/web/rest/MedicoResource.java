@@ -1,7 +1,14 @@
 package quileia.com.web.rest;
 
+import io.github.jhipster.service.filter.StringFilter;
+import io.micrometer.core.instrument.util.StringUtils;
+import org.springframework.http.HttpStatus;
+import quileia.com.Criteria.MedicoCriteria;
+import quileia.com.domain.Medico;
 import quileia.com.service.CitaService;
 import quileia.com.service.MedicoService;
+import quileia.com.service.MedicoServiceQuery;
+import quileia.com.service.dto.BusquedaMedicoDto;
 import quileia.com.service.dto.CitaDTO;
 import quileia.com.web.rest.errors.BadRequestAlertException;
 import quileia.com.service.dto.MedicoDTO;
@@ -41,10 +48,12 @@ public class MedicoResource {
 
     private final MedicoService medicoService;
     private final CitaService citaService;
+    private final MedicoServiceQuery medicoServiceQuery;
 
-    public MedicoResource(MedicoService medicoService, CitaService citaService) {
+    public MedicoResource(MedicoService medicoService, CitaService citaService, MedicoServiceQuery medicoServiceQuery) {
         this.medicoService = medicoService;
         this.citaService = citaService;
+        this.medicoServiceQuery = medicoServiceQuery;
     }
 
     /**
@@ -149,5 +158,34 @@ public class MedicoResource {
         log.debug("REST request to delete Medico : {}", id);
         medicoService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @PostMapping("/medicos/list")
+    public ResponseEntity<List<Medico>> List(@RequestBody BusquedaMedicoDto busquedaMedicoDto){
+        MedicoCriteria medicoCriteria = createCriteriaMedico(busquedaMedicoDto);
+        List<Medico> list = medicoServiceQuery.findByCriterial(medicoCriteria);
+        return new ResponseEntity<List<Medico>>(list, HttpStatus.OK);
+    }
+
+    private MedicoCriteria createCriteriaMedico(BusquedaMedicoDto busquedaMedicoDto){
+        MedicoCriteria medicoCriteria = new MedicoCriteria();
+        if(busquedaMedicoDto!=null){
+            if(!StringUtils.isBlank(busquedaMedicoDto.getIdentificacion())){
+                StringFilter filterMedicoIdentificacion = new StringFilter();
+                filterMedicoIdentificacion.setEquals(busquedaMedicoDto.getIdentificacion());
+                medicoCriteria.setIdentificacion(filterMedicoIdentificacion);
+            }
+            if(!StringUtils.isBlank(busquedaMedicoDto.getNombreCompleto())){
+                StringFilter filterMedicoNombreComp = new StringFilter();
+                filterMedicoNombreComp.setEquals(busquedaMedicoDto.getNombreCompleto());
+                medicoCriteria.setIdentificacion(filterMedicoNombreComp);
+            }
+            if(!StringUtils.isBlank(busquedaMedicoDto.getFranjaHoraria())){
+                StringFilter filterMedicoFranjaHor = new StringFilter();
+                filterMedicoFranjaHor.setEquals(busquedaMedicoDto.getFranjaHoraria());
+                medicoCriteria.setFranjaHoraria(filterMedicoFranjaHor);
+            }
+        }
+        return medicoCriteria;
     }
 }
