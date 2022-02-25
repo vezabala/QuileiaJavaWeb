@@ -22,6 +22,8 @@ Navbar
   .dropdown-item.active:focus,
   .dropdown-item.active:hover {
     background-color: $dark;
+    position: sticky;
+    top: 0px;
   }
 
   ul.navbar-nav {
