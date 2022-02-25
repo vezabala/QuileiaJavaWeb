@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface MedicoRepository extends JpaRepository<Medico, Long> {
+public interface MedicoRepository extends JpaRepository<Medico, Long>,JpaSpecificationExecutor<Medico> {
     Optional<Medico> findByIdentificacionAndTipoDocumento(String identificacion, TipoDocumento tipoDocumento);
     Optional<Medico> findByIdentificacionAndFranjaHoraria(String identificacion, FranjaHoraria franjaHoraria);
 }

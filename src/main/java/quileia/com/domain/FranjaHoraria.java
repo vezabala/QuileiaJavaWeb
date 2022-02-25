@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import quileia.com.domain.enumeration.Estado;
 
 /**
@@ -39,6 +40,7 @@ public class FranjaHoraria implements Serializable {
     private Set<Horario> horarios = new HashSet<>();
 
     @OneToMany(mappedBy = "franjaHoraria")
+    @JsonIgnore
     private Set<Medico> medicos = new HashSet<>();
 
     @OneToMany(mappedBy = "franjaHoraria")
