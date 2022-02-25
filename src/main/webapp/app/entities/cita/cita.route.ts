@@ -43,11 +43,10 @@ export const citaRoute: Routes = [
       pagingParams: JhiResolvePagingParams
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       defaultSort: 'id,asc',
       pageTitle: 'quileiaJavaWebApp.cita.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
   },
   {
     path: ':id/view',
@@ -56,10 +55,9 @@ export const citaRoute: Routes = [
       cita: CitaResolve
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       pageTitle: 'quileiaJavaWebApp.cita.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
   },
   {
     path: 'new',
@@ -68,10 +66,9 @@ export const citaRoute: Routes = [
       cita: CitaResolve
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       pageTitle: 'quileiaJavaWebApp.cita.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
   },
   {
     path: ':id/edit',
@@ -80,9 +77,8 @@ export const citaRoute: Routes = [
       cita: CitaResolve
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       pageTitle: 'quileiaJavaWebApp.cita.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
   }
 ];

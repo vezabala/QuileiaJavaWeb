@@ -99,8 +99,10 @@ public class MedicoResource {
             CitaDTO citaDTO = new CitaDTO();
             citaDTO.setMedicosId(medicoDTO.getId());
             Optional<CitaDTO> citaDTO1 = citaService.findByMedicos(citaDTO);
-            if(medicoDTO.getId()== citaDTO1.get().getMedicosId() && medicoDTO.getEspecialidadId() != citaDTO1.get().getEspecialidadId()) {
-                throw new BadRequestAlertException("A new medico cannot already have diferent ESPECIALIDAD", ENTITY_NAME, "idmedicoESPEcitaexist1");
+            if(citaDTO1.isPresent()) {
+                if (medicoDTO.getId() == citaDTO1.get().getMedicosId() && medicoDTO.getEspecialidadId() != citaDTO1.get().getEspecialidadId()) {
+                    throw new BadRequestAlertException("A new medico cannot already have diferent ESPECIALIDAD", ENTITY_NAME, "idmedicoESPEcitaexist1");
+                }
             }
         }
         MedicoDTO result = medicoService.save(medicoDTO);
