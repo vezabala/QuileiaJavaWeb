@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "¡Bienvenido, Java Hipster!",
-    "subtitle": "Esta es su página de inicio",
+    "title": "Prueba Tecnica Quilea",
+    "subtitle": "Nota: Puede modificar las demas entidades ingresando a la cuenta: usuario: admin, contraseña: admin",
     "logged": {
       "message": "Está conectado como \"{{username}}\"."
     },
