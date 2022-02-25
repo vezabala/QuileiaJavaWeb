@@ -43,7 +43,7 @@ export const pacienteRoute: Routes = [
       pagingParams: JhiResolvePagingParams
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       defaultSort: 'id,asc',
       pageTitle: 'quileiaJavaWebApp.paciente.home.title'
     },
@@ -56,10 +56,9 @@ export const pacienteRoute: Routes = [
       paciente: PacienteResolve
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       pageTitle: 'quileiaJavaWebApp.paciente.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
   },
   {
     path: 'new',
@@ -68,10 +67,9 @@ export const pacienteRoute: Routes = [
       paciente: PacienteResolve
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       pageTitle: 'quileiaJavaWebApp.paciente.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
   },
   {
     path: ':id/edit',
@@ -80,9 +78,8 @@ export const pacienteRoute: Routes = [
       paciente: PacienteResolve
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       pageTitle: 'quileiaJavaWebApp.paciente.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
   }
 ];

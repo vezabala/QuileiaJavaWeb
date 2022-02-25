@@ -43,11 +43,10 @@ export const medicoRoute: Routes = [
       pagingParams: JhiResolvePagingParams
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       defaultSort: 'id,asc',
       pageTitle: 'quileiaJavaWebApp.medico.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
   },
   {
     path: ':id/view',
@@ -56,10 +55,9 @@ export const medicoRoute: Routes = [
       medico: MedicoResolve
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       pageTitle: 'quileiaJavaWebApp.medico.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
   },
   {
     path: 'new',
@@ -68,10 +66,9 @@ export const medicoRoute: Routes = [
       medico: MedicoResolve
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       pageTitle: 'quileiaJavaWebApp.medico.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
   },
   {
     path: ':id/edit',
@@ -80,9 +77,8 @@ export const medicoRoute: Routes = [
       medico: MedicoResolve
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       pageTitle: 'quileiaJavaWebApp.medico.home.title'
-    },
-    canActivate: [UserRouteAccessService]
+    }
   }
 ];
