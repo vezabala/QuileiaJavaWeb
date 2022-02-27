@@ -107,4 +107,12 @@ public class FranjaHorariaService {
         log.debug("Request to delete FranjaHoraria : {}", id);
         franjaHorariaRepository.deleteById(id);
     }
+
+    /**
+     * Get FranjaHoraria By list
+     * @return List of Franja Horaria
+     */
+    public List<FranjaHoraria> findAllList(){
+        return franjaHorariaRepository.findAll();
+    }
 }

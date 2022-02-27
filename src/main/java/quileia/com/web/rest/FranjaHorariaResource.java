@@ -1,5 +1,6 @@
 package quileia.com.web.rest;
 
+import quileia.com.domain.FranjaHoraria;
 import quileia.com.service.FranjaHorariaService;
 import quileia.com.web.rest.errors.BadRequestAlertException;
 import quileia.com.service.dto.FranjaHorariaDTO;
@@ -142,5 +143,11 @@ public class FranjaHorariaResource {
         log.debug("REST request to delete FranjaHoraria : {}", id);
         franjaHorariaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @GetMapping("/franja-horarias/list")
+    public ResponseEntity<List<FranjaHoraria>> list(){
+        List<FranjaHoraria> list = franjaHorariaService.findAllList();
+        return new ResponseEntity<List<FranjaHoraria>>(list, HttpStatus.OK);
     }
 }

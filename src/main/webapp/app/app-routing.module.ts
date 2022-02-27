@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { errorRoute } from './layouts/error/error.route';
 import { navbarRoute } from './layouts/navbar/navbar.route';
 import { DEBUG_INFO_ENABLED } from 'app/app.constants';
@@ -7,7 +7,14 @@ import { Authority } from 'app/shared/constants/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 
+import { MedicoComponent } from 'app/entities/medico/medico.component';
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
+
+const routes: Routes = [
+  { path: '', component: MedicoComponent },
+  { path: 'medicos', component: MedicoComponent },
+  { path: '**', redirectTo: 'medicos', pathMatch: 'full' }
+];
 
 @NgModule({
   imports: [

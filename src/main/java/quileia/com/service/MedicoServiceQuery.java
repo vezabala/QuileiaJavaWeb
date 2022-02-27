@@ -26,25 +26,22 @@ public class MedicoServiceQuery extends QueryService<Medico> {
         List<Medico> medicos = medicoRepository.findAll(specification);
         return medicos;
     }
-    private Specification<Medico> createSpecification (MedicoCriteria medicoCriteria){
+    private Specification<Medico> createSpecification (MedicoCriteria criteria){
         Specification<Medico> specification = Specification.where(null);
-        if (medicoCriteria != null ){
-            if(medicoCriteria.getIdentificacion() != null){
+        if (criteria != null ){
+            if(criteria.getIdentificacion() != null){
                 specification =
-                    specification.and(buildStringSpecification(medicoCriteria.getIdentificacion() , Medico_.identificacion));
+                    specification.and(buildStringSpecification(criteria.getIdentificacion() , Medico_.identificacion));
             }
-            if(medicoCriteria.getIdentificacion() != null){
+            if(criteria.getNombreCompleto() != null){
                 specification =
-                    specification.and(buildStringSpecification(medicoCriteria.getNombreCompleto() , Medico_.nombreCompleto));
+                    specification.and(buildStringSpecification(criteria.getNombreCompleto() , Medico_.nombreCompleto));
             }
-            if(medicoCriteria.getFranjaHoraria() != null){
+            if(criteria.getFranjaHoraria() != null){
                 specification =
-                    specification.and(buildReferringEntitySpecification(medicoCriteria.getFranjaHoraria(), Medico_.franjaHoraria , FranjaHoraria_.franja));
+                    specification.and(buildReferringEntitySpecification(criteria.getFranjaHoraria(), Medico_.franjaHoraria , FranjaHoraria_.franja));
             }
         }
         return specification;
-    }
-    public List<Medico> findAll(){
-        return medicoRepository.findAll();
     }
 }
