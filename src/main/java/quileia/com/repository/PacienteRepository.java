@@ -13,6 +13,6 @@ import java.util.Optional;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface PacienteRepository extends JpaRepository<Paciente, Long> {
+public interface PacienteRepository extends JpaRepository<Paciente, Long>,JpaSpecificationExecutor<Paciente> {
     Optional<Paciente> findByIdentificacionAndTipoDocumento(String identificacion, TipoDocumento tipoDocumento);
 }

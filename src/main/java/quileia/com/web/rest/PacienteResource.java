@@ -1,6 +1,13 @@
 package quileia.com.web.rest;
 
+import io.github.jhipster.service.filter.StringFilter;
+import io.micrometer.core.instrument.util.StringUtils;
+import org.springframework.http.HttpStatus;
+import quileia.com.Criteria.PacienteCriteria;
+import quileia.com.domain.Paciente;
 import quileia.com.service.PacienteService;
+import quileia.com.service.PacienteServiceQuery;
+import quileia.com.service.dto.BusquedaPacienteDTO;
 import quileia.com.web.rest.errors.BadRequestAlertException;
 import quileia.com.service.dto.PacienteDTO;
 
@@ -13,7 +20,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +46,11 @@ public class PacienteResource {
 
     private final PacienteService pacienteService;
 
-    public PacienteResource(PacienteService pacienteService) {
+    private final PacienteServiceQuery pacienteServiceQuery;
+
+    public PacienteResource(PacienteService pacienteService, PacienteServiceQuery pacienteServiceQuery) {
         this.pacienteService = pacienteService;
+        this.pacienteServiceQuery = pacienteServiceQuery;
     }
 
     /**
@@ -129,5 +138,29 @@ public class PacienteResource {
         log.debug("REST request to delete Paciente : {}", id);
         pacienteService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+
+    @PostMapping("/pacientes/list")
+    public ResponseEntity<List<Paciente>> List(@RequestBody BusquedaPacienteDTO busquedaPacienteDTO){
+        PacienteCriteria pacienteCriteria = createCriteriaPaciente(busquedaPacienteDTO);
+        List<Paciente> list = pacienteServiceQuery.findByCriterialPaciente(pacienteCriteria);
+        return new ResponseEntity<List<Paciente>>(list, HttpStatus.OK);
+    }
+
+    private PacienteCriteria createCriteriaPaciente(BusquedaPacienteDTO busquedaPacienteDTO){
+        PacienteCriteria pacienteCriteria = new PacienteCriteria();
+        if(busquedaPacienteDTO!=null){
+            if(!StringUtils.isBlank(busquedaPacienteDTO.getNombreCompleto())){
+                StringFilter filterPacienteNombreComp = new StringFilter();
+                filterPacienteNombreComp.setEquals(busquedaPacienteDTO.getNombreCompleto());
+                pacienteCriteria.setNombreCompleto(filterPacienteNombreComp);
+            }
+            if(!StringUtils.isBlank(busquedaPacienteDTO.getIdentificacion())){
+                StringFilter filterPacienteIdentificacion = new StringFilter();
+                filterPacienteIdentificacion.setEquals(busquedaPacienteDTO.getIdentificacion());
+                pacienteCriteria.setIdentificacion(filterPacienteIdentificacion);
+            }
+        }
+        return pacienteCriteria;
     }
 }
