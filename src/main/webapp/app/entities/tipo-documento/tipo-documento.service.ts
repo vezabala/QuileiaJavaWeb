@@ -35,4 +35,7 @@ export class TipoDocumentoService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+  queryByEstado(estado?: string): Observable<EntityArrayResponseType> {
+    return this.http.get<ITipoDocumento[]>(`${this.resourceUrl}/estado/${estado}`, { observe: 'response' });
+  }
 }

@@ -47,10 +47,13 @@ export class MedicoUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const STATE_ACTIVEMED = 'ACTIVO';
     this.activatedRoute.data.subscribe(({ medico }) => {
       this.updateForm(medico);
 
-      this.tipoDocumentoService.query().subscribe((res: HttpResponse<ITipoDocumento[]>) => (this.tipodocumentos = res.body || []));
+      this.tipoDocumentoService
+        .queryByEstado(STATE_ACTIVEMED)
+        .subscribe((res: HttpResponse<ITipoDocumento[]>) => (this.tipodocumentos = res.body || []));
 
       this.especialidadService.query().subscribe((res: HttpResponse<IEspecialidad[]>) => (this.especialidads = res.body || []));
 

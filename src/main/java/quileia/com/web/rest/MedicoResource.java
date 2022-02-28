@@ -118,10 +118,10 @@ public class MedicoResource {
                 Long idMedicoDto = medicoTemp3.get().getId();
                 Long idMedicoList = listCita.get(0).getMedicos().getId();
                 boolean medicoidvalidacion = idMedicoDto == idMedicoList ;
-                if(medicoidvalidacion == false){
+                if(!medicoidvalidacion){
                     medicoidvalidacion = true;
                 }
-                if ( medicoidvalidacion == true && medicoDTO.getEspecialidadId() != listCita.get(0).getEspecialidad().getId()) {
+                if (medicoidvalidacion && medicoDTO.getEspecialidadId() != listCita.get(0).getEspecialidad().getId()) {
                     throw new BadRequestAlertException("A new medico cannot already have diferent ESPECIALIDAD", ENTITY_NAME, "idmedicoESPEcitaexist1");
                 }
             }
