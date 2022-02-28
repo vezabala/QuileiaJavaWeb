@@ -8,6 +8,7 @@ import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IPaciente } from 'app/shared/model/paciente.model';
+import { BusquedaPaciente } from 'app/entities/model/busquedaPaciente';
 
 type EntityResponseType = HttpResponse<IPaciente>;
 type EntityArrayResponseType = HttpResponse<IPaciente[]>;
@@ -71,5 +72,8 @@ export class PacienteService {
       });
     }
     return res;
+  }
+  pacientes(busqueda: BusquedaPaciente): Observable<any[]> {
+    return this.http.post<any[]>(this.resourceUrl + '/list', busqueda);
   }
 }
