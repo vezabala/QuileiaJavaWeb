@@ -10,6 +10,7 @@ import { IPaciente } from 'app/shared/model/paciente.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { PacienteService } from './paciente.service';
 import { PacienteDeleteDialogComponent } from './paciente-delete-dialog.component';
+import { BusquedaPaciente } from 'app/entities/model/busquedaPaciente';
 
 @Component({
   selector: 'jhi-paciente',
@@ -24,6 +25,12 @@ export class PacienteComponent implements OnInit, OnDestroy {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  pacientesList: any[] = [];
+
+  busqueda: BusquedaPaciente = {
+    identificacion: '',
+    nombreCompleto: ''
+  };
 
   constructor(
     protected pacienteService: PacienteService,
@@ -56,6 +63,7 @@ export class PacienteComponent implements OnInit, OnDestroy {
       this.predicate = data.pagingParams.predicate;
       this.ngbPaginationPage = data.pagingParams.page;
       this.loadPage();
+      this.listaPacientes();
     });
     this.registerChangeInPacientes();
   }
@@ -111,5 +119,28 @@ export class PacienteComponent implements OnInit, OnDestroy {
 
   protected onError(): void {
     this.ngbPaginationPage = this.page;
+  }
+  listaPacientes(): void {
+    this.pacienteService.pacientes(this.busqueda).subscribe(
+      data => {
+        this.pacientesList = data;
+      },
+      () => this.onError()
+    );
+  }
+
+  clearIdentificacion(): void {
+    this.busqueda.identificacion = '';
+    this.listaPacientes();
+  }
+  clearNombreCompleto(): void {
+    this.busqueda.nombreCompleto = '';
+    this.listaPacientes();
+  }
+
+  clear(): void {
+    this.busqueda.identificacion = '';
+    this.busqueda.nombreCompleto = '';
+    this.listaPacientes();
   }
 }

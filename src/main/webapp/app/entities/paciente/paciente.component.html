@@ -18,6 +18,41 @@
         <span jhiTranslate="quileiaJavaWebApp.paciente.home.notFound">No pacientes found</span>
     </div>
 
+    <div class="container mb-5">
+        <form>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="identificacion"><b>identificación:</b></label>
+                        <div class="input-group">
+                            <button class="btn btn-outline-danger" (click)="clearIdentificacion()"
+                                    [disabled]="!busqueda.identificacion">Vaciar</button>
+                            <input type="text" class="form-control" name="identificacion" id="identificacion"
+                                   [(ngModel)]="busqueda.identificacion">
+                            <button class="btn btn-outline-success" (click)="listaPacientes()"
+                                    [disabled]="!busqueda.identificacion">Filtrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="nombreCompleto"><b>Nombre completo:</b></label>
+                        <div class="input-group">
+                            <button class="btn btn-outline-danger" (click)="clearNombreCompleto()"
+                                    [disabled]="!busqueda.nombreCompleto">Vaciar</button>
+                            <input type="text" class="form-control" name="nombreCompleto" id="nombreCompleto"
+                                   [(ngModel)]="busqueda.nombreCompleto">
+                            <button class="btn btn-outline-success" (click)="listaPacientes()"
+                                    [disabled]="!busqueda.nombreCompleto">Filtrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div class="table-responsive" id="entities" *ngIf="pacientes?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
