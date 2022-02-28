@@ -1,5 +1,6 @@
 package quileia.com.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -43,6 +44,7 @@ public class Medico implements Serializable {
     private Double anosDeExperiencia;
 
     @OneToMany(mappedBy = "medicos")
+    @JsonIgnore
     private Set<Cita> citas = new HashSet<>();
 
     @ManyToOne(optional = false)

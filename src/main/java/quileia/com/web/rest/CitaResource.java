@@ -1,12 +1,16 @@
 package quileia.com.web.rest;
 
+import io.github.jhipster.service.filter.StringFilter;
+import io.micrometer.core.instrument.util.StringUtils;
+import org.springframework.http.HttpStatus;
+import quileia.com.Criteria.CitaCriteria;
+import quileia.com.domain.Cita;
 import quileia.com.service.CitaService;
+import quileia.com.service.CitaServiceQuery;
 import quileia.com.service.HorarioService;
 import quileia.com.service.MedicoService;
-import quileia.com.service.dto.HorarioDTO;
-import quileia.com.service.dto.MedicoDTO;
+import quileia.com.service.dto.*;
 import quileia.com.web.rest.errors.BadRequestAlertException;
-import quileia.com.service.dto.CitaDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -44,11 +48,13 @@ public class CitaResource {
     private final CitaService citaService;
     private final MedicoService medicoService;
     private final HorarioService horarioService;
+    private final CitaServiceQuery citaServiceQuery;
 
-    public CitaResource(CitaService citaService, MedicoService medicoService, HorarioService horarioService) {
+    public CitaResource(CitaService citaService, MedicoService medicoService, HorarioService horarioService, CitaServiceQuery citaServiceQuery) {
         this.citaService = citaService;
         this.medicoService = medicoService;
         this.horarioService = horarioService;
+        this.citaServiceQuery = citaServiceQuery;
     }
 
     /**
@@ -193,5 +199,24 @@ public class CitaResource {
         log.debug("REST request to delete Cita : {}", id);
         citaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    @PostMapping("/citas/list")
+    public ResponseEntity<List<Cita>> List(@RequestBody BusquedaCitaDTO busquedaCitaDTO){
+        CitaCriteria citaCriteria = createCriteriaCita(busquedaCitaDTO);
+        List<Cita> list = citaServiceQuery.findByCriterialCita(citaCriteria);
+        return new ResponseEntity<List<Cita>>(list, HttpStatus.OK);
+    }
+
+    private CitaCriteria createCriteriaCita(BusquedaCitaDTO busquedaCitaDTO){
+        CitaCriteria citaCriteria = new CitaCriteria();
+        if(busquedaCitaDTO!=null){
+
+            if(!StringUtils.isBlank(busquedaCitaDTO.getMedico())){
+                StringFilter filterCitaMedico = new StringFilter();
+                filterCitaMedico.setEquals(busquedaCitaDTO.getMedico());
+                citaCriteria.setMedico(filterCitaMedico);
+            }
+        }
+        return citaCriteria;
     }
 }
