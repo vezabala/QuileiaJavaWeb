@@ -1,5 +1,6 @@
 package quileia.com.web.rest;
 
+import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -210,6 +211,12 @@ public class CitaResource {
     private CitaCriteria createCriteriaCita(BusquedaCitaDTO busquedaCitaDTO){
         CitaCriteria citaCriteria = new CitaCriteria();
         if(busquedaCitaDTO!=null){
+
+            if(busquedaCitaDTO.getId() != null){
+                LongFilter filterId = new LongFilter();
+                filterId.setEquals(busquedaCitaDTO.getId());
+                citaCriteria.setId(filterId);
+            }
 
             if(!StringUtils.isBlank(busquedaCitaDTO.getMedico())){
                 StringFilter filterCitaMedico = new StringFilter();

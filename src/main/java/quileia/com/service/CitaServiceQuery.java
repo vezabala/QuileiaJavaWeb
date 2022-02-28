@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import quileia.com.Criteria.CitaCriteria;
 import quileia.com.domain.Cita;
 import quileia.com.domain.Cita_;
-import quileia.com.domain.Medico;
 import quileia.com.domain.Medico_;
 import quileia.com.repository.CitaRepository;
 
@@ -28,6 +27,10 @@ public class CitaServiceQuery extends QueryService<Cita> {
     private Specification<Cita> createSpecificationCita (CitaCriteria citaCriteria){
         Specification<Cita> specification = Specification.where(null);
         if (citaCriteria != null ){
+            if(citaCriteria.getId() != null){
+                specification =
+                    specification.and(buildSpecification(citaCriteria.getId() , Cita_.id));
+            }
             if(citaCriteria.getMedico() != null){
                 specification =
                     specification.and(buildReferringEntitySpecification(citaCriteria.getMedico(), Cita_.medicos , Medico_.nombreCompleto));
