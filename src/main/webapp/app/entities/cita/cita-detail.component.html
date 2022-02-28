@@ -10,18 +10,12 @@
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="quileiaJavaWebApp.cita.fecha">Fecha</span></dt>
                 <dd>
-                    <span>{{ cita.fecha }}</span>
+                    <span>{{ cita.fecha | date:'mediumDate' }}</span>
                 </dd>
                 <dt><span jhiTranslate="quileiaJavaWebApp.cita.especialidad">Especialidad</span></dt>
                 <dd>
                     <div *ngIf="cita.especialidadId">
                         <a [routerLink]="['/especialidad', cita.especialidadId, 'view']">{{ cita.especialidadNombreEspecialidad }}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="quileiaJavaWebApp.cita.franjaHoraria">Franja Horaria</span></dt>
-                <dd>
-                    <div *ngIf="cita.franjaHorariaId">
-                        <a [routerLink]="['/franja-horaria', cita.franjaHorariaId, 'view']">{{ cita.franjaHorariaFranja }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="quileiaJavaWebApp.cita.horario">Horario</span></dt>

@@ -1,5 +1,6 @@
 package quileia.com.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Type;
 
@@ -51,6 +52,7 @@ public class Paciente implements Serializable {
     private String historiaClinica;
 
     @OneToMany(mappedBy = "pacientes")
+    @JsonIgnore
     private Set<Cita> citas = new HashSet<>();
 
     @ManyToOne(optional = false)

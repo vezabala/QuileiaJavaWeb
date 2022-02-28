@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -93,5 +94,12 @@ public class PacienteService {
     public void delete(Long id) {
         log.debug("Request to delete Paciente : {}", id);
         pacienteRepository.deleteById(id);
+    }
+    /**
+     * Get Medico By list
+     * @return List of medico
+     */
+    public List<Paciente> findAllList(){
+        return pacienteRepository.findAll();
     }
 }

@@ -10,6 +10,7 @@ import { ICita } from 'app/shared/model/cita.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { CitaService } from './cita.service';
 import { CitaDeleteDialogComponent } from './cita-delete-dialog.component';
+import { BusquedaCita } from 'app/entities/model/busquedaCita';
 
 @Component({
   selector: 'jhi-cita',
@@ -24,6 +25,16 @@ export class CitaComponent implements OnInit, OnDestroy {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  citasList: any[] = [];
+  medicos: any[] = [];
+  pacientes: any[] = [];
+  medicoElegido: any = null;
+  pacienteElegido: any = null;
+
+  busqueda: BusquedaCita = {
+    medico: '',
+    paciente: ''
+  };
 
   constructor(
     protected citaService: CitaService,
@@ -55,6 +66,9 @@ export class CitaComponent implements OnInit, OnDestroy {
       this.predicate = data.pagingParams.predicate;
       this.ngbPaginationPage = data.pagingParams.page;
       this.loadPage();
+      this.listaCitas();
+      this.listaMedicosC();
+      this.listaPacientesC();
     });
     this.registerChangeInCitas();
   }
@@ -102,5 +116,48 @@ export class CitaComponent implements OnInit, OnDestroy {
 
   protected onError(): void {
     this.ngbPaginationPage = this.page;
+  }
+  listaMedicosC(): void {
+    this.citaService.medicos().subscribe(
+      data => {
+        this.medicos = data;
+      },
+      () => this.onError()
+    );
+  }
+  listaPacientesC(): void {
+    this.citaService.pacientes().subscribe(
+      data => {
+        this.pacientes = data;
+      },
+      () => this.onError()
+    );
+  }
+  listaCitas(): void {
+    this.citaService.citas(this.busqueda).subscribe(
+      data => {
+        this.citasList = data;
+      },
+      () => this.onError()
+    );
+  }
+
+  clear(): void {
+    this.busqueda.medico = '';
+    this.busqueda.paciente = '';
+    this.listaCitas();
+  }
+  onChangeCita(): void {
+    if (this.medicoElegido) {
+      this.busqueda.medico = this.medicoElegido.nombreCompleto;
+    } else {
+      this.busqueda.medico = '';
+    }
+    if (this.pacienteElegido) {
+      this.busqueda.paciente = this.pacienteElegido.nombreCompleto;
+    } else {
+      this.busqueda.paciente = '';
+    }
+    this.listaCitas();
   }
 }

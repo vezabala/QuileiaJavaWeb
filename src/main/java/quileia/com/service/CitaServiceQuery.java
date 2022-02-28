@@ -9,6 +9,7 @@ import quileia.com.Criteria.CitaCriteria;
 import quileia.com.domain.Cita;
 import quileia.com.domain.Cita_;
 import quileia.com.domain.Medico_;
+import quileia.com.domain.Paciente_;
 import quileia.com.repository.CitaRepository;
 
 import java.util.List;
@@ -27,15 +28,18 @@ public class CitaServiceQuery extends QueryService<Cita> {
     private Specification<Cita> createSpecificationCita (CitaCriteria citaCriteria){
         Specification<Cita> specification = Specification.where(null);
         if (citaCriteria != null ){
-            if(citaCriteria.getId() != null){
-                specification =
-                    specification.and(buildSpecification(citaCriteria.getId() , Cita_.id));
-            }
             if(citaCriteria.getMedico() != null){
                 specification =
                     specification.and(buildReferringEntitySpecification(citaCriteria.getMedico(), Cita_.medicos , Medico_.nombreCompleto));
             }
+            if(citaCriteria.getPaciente() != null){
+                specification =
+                    specification.and(buildReferringEntitySpecification(citaCriteria.getPaciente(), Cita_.pacientes , Paciente_.nombreCompleto));
+            }
         }
         return specification;
+    }
+    public List<Cita> findAll(){
+        return citaRepository.findAll();
     }
 }

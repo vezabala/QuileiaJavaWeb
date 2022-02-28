@@ -17,7 +17,41 @@
     <div class="alert alert-warning" id="no-result" *ngIf="citas?.length === 0">
         <span jhiTranslate="quileiaJavaWebApp.cita.home.notFound">No citas found</span>
     </div>
+    <div class="container mb-5">
+        <form>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="MedicoElegido"><b>Medico: </b></label>
+                        <select class="form-control" name="MedicoElegido" id="MedicoElegido"
+                                [(ngModel)]="medicoElegido" (change)="onChangeCita()">
+                            <option [ngValue]="null" selected>selecciona un medico</option>
+                            <option [ngValue]="medicos" *ngFor="let medicos of medicos">{{medicos.nombreCompleto}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="PacienteElegido"><b>Paciente: </b></label>
+                        <select class="form-control" name="PacienteElegido" id="PacienteElegido"
+                                [(ngModel)]="pacienteElegido" (change)="onChangeCita()">
+                            <option [ngValue]="null" selected>selecciona un paciente</option>
+                            <option [ngValue]="pacientes" *ngFor="let pacientes of pacientes">{{pacientes.nombreCompleto}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
+            <div class="row">
+                <div class="col4">
+                    <label for="reseter"><b>Resetear:</b></label>
+                    <button class="btn btn-outline-danger form-control" (click)="clear()" id="reseter">Actualizar tabala y borrar Filtros</button>
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="table-responsive" id="entities" *ngIf="citas?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
@@ -25,7 +59,6 @@
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="fecha"><span jhiTranslate="quileiaJavaWebApp.cita.fecha">Fecha</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="especialidadNombreEspecialidad"><span jhiTranslate="quileiaJavaWebApp.cita.especialidad">Especialidad</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="franjaHorariaFranja"><span jhiTranslate="quileiaJavaWebApp.cita.franjaHoraria">Franja Horaria</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="horarioHora"><span jhiTranslate="quileiaJavaWebApp.cita.horario">Horario</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="medicosNombreCompleto"><span jhiTranslate="quileiaJavaWebApp.cita.medicos">Medicos</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="pacientesNombreCompleto"><span jhiTranslate="quileiaJavaWebApp.cita.pacientes">Pacientes</span> <fa-icon icon="sort"></fa-icon></th>
@@ -33,34 +66,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let cita of citas ;trackBy: trackId">
+                <tr *ngFor="let cita of citasList">
                     <td><a [routerLink]="['/cita', cita.id, 'view']">{{ cita.id }}</a></td>
                     <td>{{ cita.fecha | date:'mediumDate' }}</td>
-                    <td>
-                        <div *ngIf="cita.especialidadId">
-                            <a [routerLink]="['/especialidad', cita.especialidadId , 'view']" >{{ cita.especialidadNombreEspecialidad }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="cita.franjaHorariaId">
-                            <a [routerLink]="['/franja-horaria', cita.franjaHorariaId , 'view']" >{{ cita.franjaHorariaFranja }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="cita.horarioId">
-                            <a [routerLink]="['/horario', cita.horarioId , 'view']" >{{ cita.horarioHora }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="cita.medicosId">
-                            <a [routerLink]="['/medico', cita.medicosId , 'view']" >{{ cita.medicosNombreCompleto }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="cita.pacientesId">
-                            <a [routerLink]="['/paciente', cita.pacientesId , 'view']" >{{ cita.pacientesNombreCompleto }}</a>
-                        </div>
-                    </td>
+                    <td>{{ cita.especialidad.nombreEspecialidad }}</td>
+                    <td>{{ cita.horario.hora }}</td>
+                    <td><a [routerLink]="['/medico', cita.medicos.id , 'view']">{{ cita.medicos.nombreCompleto }}</a></td>
+                    <td><a [routerLink]="['/paciente', cita.pacientes.id , 'view']">{{ cita.pacientes.nombreCompleto }}</a></td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

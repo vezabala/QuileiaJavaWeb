@@ -8,6 +8,7 @@ import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { ICita } from 'app/shared/model/cita.model';
+import { BusquedaCita } from 'app/entities/model/busquedaCita';
 
 type EntityResponseType = HttpResponse<ICita>;
 type EntityArrayResponseType = HttpResponse<ICita[]>;
@@ -15,6 +16,8 @@ type EntityArrayResponseType = HttpResponse<ICita[]>;
 @Injectable({ providedIn: 'root' })
 export class CitaService {
   public resourceUrl = SERVER_API_URL + 'api/citas';
+  public medicoUrl = SERVER_API_URL + 'api/medicos';
+  public pacienteUrl = SERVER_API_URL + 'api/pacientes';
 
   constructor(protected http: HttpClient) {}
 
@@ -70,5 +73,14 @@ export class CitaService {
       });
     }
     return res;
+  }
+  medicos(): Observable<any[]> {
+    return this.http.get<any[]>(this.medicoUrl + '/list');
+  }
+  pacientes(): Observable<any[]> {
+    return this.http.get<any[]>(this.pacienteUrl + '/list');
+  }
+  citas(busqueda: BusquedaCita): Observable<any[]> {
+    return this.http.post<any[]>(this.resourceUrl + '/list', busqueda);
   }
 }

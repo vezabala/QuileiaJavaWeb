@@ -212,16 +212,16 @@ public class CitaResource {
         CitaCriteria citaCriteria = new CitaCriteria();
         if(busquedaCitaDTO!=null){
 
-            if(busquedaCitaDTO.getId() != null){
-                LongFilter filterId = new LongFilter();
-                filterId.setEquals(busquedaCitaDTO.getId());
-                citaCriteria.setId(filterId);
-            }
-
             if(!StringUtils.isBlank(busquedaCitaDTO.getMedico())){
                 StringFilter filterCitaMedico = new StringFilter();
                 filterCitaMedico.setEquals(busquedaCitaDTO.getMedico());
                 citaCriteria.setMedico(filterCitaMedico);
+            }
+
+            if(!StringUtils.isBlank(busquedaCitaDTO.getPaciente())){
+                StringFilter filterCitaPaciente = new StringFilter();
+                filterCitaPaciente.setEquals(busquedaCitaDTO.getPaciente());
+                citaCriteria.setPaciente(filterCitaPaciente);
             }
         }
         return citaCriteria;

@@ -5,7 +5,7 @@ import io.github.jhipster.service.filter.StringFilter;
 
 public class CitaCriteria {
     private StringFilter medico;
-    private LongFilter id;
+    private StringFilter paciente;
 
     public StringFilter getMedico() {
         return medico;
@@ -15,11 +15,11 @@ public class CitaCriteria {
         this.medico = medico;
     }
 
-    public LongFilter getId() {
-        return id;
+    public StringFilter getPaciente() {
+        return paciente;
     }
 
-    public void setId(LongFilter id) {
-        this.id = id;
+    public void setPaciente(StringFilter paciente) {
+        this.paciente = paciente;
     }
 }

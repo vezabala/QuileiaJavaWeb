@@ -113,8 +113,15 @@ public class MedicoResource {
         if (medicoDTO.getEspecialidadId() != null) {
             CitaCriteria citaCriteria = createCriteriaCita(medicoDTO);
             List<Cita> listCita = citaServiceQuery.findByCriterialCita(citaCriteria);
+            Optional<MedicoDTO> medicoTemp3 = medicoService.findOne(medicoDTO.getId());
             if(listCita.size() != 0) {
-                if (medicoDTO.getId() == listCita.get(0).getMedicos().getId() && medicoDTO.getEspecialidadId() != listCita.get(0).getEspecialidad().getId()) {
+                Long idMedicoDto = medicoTemp3.get().getId();
+                Long idMedicoList = listCita.get(0).getMedicos().getId();
+                boolean medicoidvalidacion = idMedicoDto == idMedicoList ;
+                if(medicoidvalidacion == false){
+                    medicoidvalidacion = true;
+                }
+                if ( medicoidvalidacion == true && medicoDTO.getEspecialidadId() != listCita.get(0).getEspecialidad().getId()) {
                     throw new BadRequestAlertException("A new medico cannot already have diferent ESPECIALIDAD", ENTITY_NAME, "idmedicoESPEcitaexist1");
                 }
             }
@@ -211,5 +218,11 @@ public class MedicoResource {
             }
         }
         return medicoCriteria;
+    }
+
+    @GetMapping("/medicos/list")
+    public ResponseEntity<List<Medico>> list(){
+        List<Medico> list = medicoService.findAllList();
+        return new ResponseEntity<List<Medico>>(list, HttpStatus.OK);
     }
 }

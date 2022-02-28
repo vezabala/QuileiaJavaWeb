@@ -163,4 +163,10 @@ public class PacienteResource {
         }
         return pacienteCriteria;
     }
+
+    @GetMapping("/pacientes/list")
+    public ResponseEntity<List<Paciente>> list(){
+        List<Paciente> list = pacienteService.findAllList();
+        return new ResponseEntity<List<Paciente>>(list, HttpStatus.OK);
+    }
 }

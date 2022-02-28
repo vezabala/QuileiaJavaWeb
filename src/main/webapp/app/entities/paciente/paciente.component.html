@@ -50,6 +50,12 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col4">
+                    <label for="reseter"><b>Resetear:</b></label>
+                    <button class="btn btn-outline-danger form-control" (click)="clear()" id="reseter">Actualizar tabala y borrar Filtros</button>
+                </div>
+            </div>
         </form>
     </div>
 
@@ -58,28 +64,24 @@
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="tipoDocumentoNombreDocumento"><span jhiTranslate="quileiaJavaWebApp.paciente.tipoDocumento">Tipo Documento</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="identificacion"><span jhiTranslate="quileiaJavaWebApp.paciente.identificacion">Identificacion</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="nombreCompleto"><span jhiTranslate="quileiaJavaWebApp.paciente.nombreCompleto">Nombre Completo</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="fechaNacimiento"><span jhiTranslate="quileiaJavaWebApp.paciente.fechaNacimiento">Fecha Nacimiento</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="identificacion"><span jhiTranslate="quileiaJavaWebApp.paciente.identificacion">Identificacion</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="eps"><span jhiTranslate="quileiaJavaWebApp.paciente.eps">Eps</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="historiaClinica"><span jhiTranslate="quileiaJavaWebApp.paciente.historiaClinica">Historia Clinica</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="tipoDocumentoNombreDocumento"><span jhiTranslate="quileiaJavaWebApp.paciente.tipoDocumento">Tipo Documento</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let paciente of pacientes ;trackBy: trackId">
+                <tr *ngFor="let paciente of pacientesList">
                     <td><a [routerLink]="['/paciente', paciente.id, 'view']">{{ paciente.id }}</a></td>
+                    <td>{{ paciente.tipoDocumento.nombreDocumento }}</td>
+                    <td>{{ paciente.identificacion }}</td>
                     <td>{{ paciente.nombreCompleto }}</td>
                     <td>{{ paciente.fechaNacimiento | date:'mediumDate' }}</td>
-                    <td>{{ paciente.identificacion }}</td>
                     <td>{{ paciente.eps }}</td>
                     <td>{{ paciente.historiaClinica }}</td>
-                    <td>
-                        <div *ngIf="paciente.tipoDocumentoId">
-                            <a [routerLink]="['/tipo-documento', paciente.tipoDocumentoId , 'view']" >{{ paciente.tipoDocumentoNombreDocumento }}</a>
-                        </div>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

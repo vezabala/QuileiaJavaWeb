@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -106,5 +107,13 @@ public class MedicoService {
     public void delete(Long id) {
         log.debug("Request to delete Medico : {}", id);
         medicoRepository.deleteById(id);
+    }
+
+    /**
+     * Get Medico By list
+     * @return List of medico
+     */
+    public List<Medico> findAllList(){
+        return medicoRepository.findAll();
     }
 }

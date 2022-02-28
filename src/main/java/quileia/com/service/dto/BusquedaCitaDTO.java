@@ -2,7 +2,7 @@ package quileia.com.service.dto;
 
 public class BusquedaCitaDTO {
     private String medico;
-    private Long id;
+    private String paciente;
 
     public String getMedico() {
         return medico;
@@ -12,11 +12,11 @@ public class BusquedaCitaDTO {
         this.medico = medico;
     }
 
-    public Long getId() {
-        return id;
+    public String getPaciente() {
+        return paciente;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPaciente(String paciente) {
+        this.paciente = paciente;
     }
 }
