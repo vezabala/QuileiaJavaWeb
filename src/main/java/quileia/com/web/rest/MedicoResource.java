@@ -202,7 +202,7 @@ public class MedicoResource {
             if(!StringUtils.isBlank(busquedaMedicoDto.getNombreCompleto())){
                 StringFilter filterMedicoNombreComp = new StringFilter();
                 filterMedicoNombreComp.setEquals(busquedaMedicoDto.getNombreCompleto());
-                medicoCriteria.setIdentificacion(filterMedicoNombreComp);
+                medicoCriteria.setNombreCompleto(filterMedicoNombreComp);
             }
             if(!StringUtils.isBlank(busquedaMedicoDto.getFranjaHoraria())){
                 StringFilter filterMedicoFranjaHor = new StringFilter();
