@@ -6,12 +6,15 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IMedico } from 'app/shared/model/medico.model';
 
+import { BusquedaMedico } from 'app/entities/model/busquedaMedico';
+
 type EntityResponseType = HttpResponse<IMedico>;
 type EntityArrayResponseType = HttpResponse<IMedico[]>;
 
 @Injectable({ providedIn: 'root' })
 export class MedicoService {
   public resourceUrl = SERVER_API_URL + 'api/medicos';
+  public franjaHorariaUrl = SERVER_API_URL + 'api/franja-horarias';
 
   constructor(protected http: HttpClient) {}
 
@@ -34,5 +37,12 @@ export class MedicoService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+  franjaHorarias(): Observable<any[]> {
+    return this.http.get<any[]>(this.franjaHorariaUrl + '/list');
+  }
+
+  medicos(busqueda: BusquedaMedico): Observable<any[]> {
+    return this.http.post<any[]>(this.resourceUrl + '/list', busqueda);
   }
 }

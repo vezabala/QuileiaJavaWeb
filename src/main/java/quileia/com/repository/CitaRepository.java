@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CitaRepository extends JpaRepository<Cita, Long> {
+public interface CitaRepository extends JpaRepository<Cita, Long> ,JpaSpecificationExecutor<Cita>{
     Optional<Cita> findByMedicosAndHorarioAndFecha(Medico medico, Horario horario, LocalDate fecha);
     Optional<Cita> findByPacientesAndHorarioAndFecha(Paciente paciente, Horario horario, LocalDate fecha);
     Optional<Cita> findByPacientesAndMedicos(Paciente paciente, Medico medico);

@@ -3,11 +3,15 @@ package quileia.com.web.rest;
 import io.github.jhipster.service.filter.StringFilter;
 import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.http.HttpStatus;
+import quileia.com.Criteria.CitaCriteria;
 import quileia.com.Criteria.MedicoCriteria;
+import quileia.com.domain.Cita;
 import quileia.com.domain.Medico;
 import quileia.com.service.CitaService;
+import quileia.com.service.CitaServiceQuery;
 import quileia.com.service.MedicoService;
 import quileia.com.service.MedicoServiceQuery;
+import quileia.com.service.dto.BusquedaCitaDTO;
 import quileia.com.service.dto.BusquedaMedicoDto;
 import quileia.com.service.dto.CitaDTO;
 import quileia.com.web.rest.errors.BadRequestAlertException;
@@ -49,11 +53,13 @@ public class MedicoResource {
     private final MedicoService medicoService;
     private final CitaService citaService;
     private final MedicoServiceQuery medicoServiceQuery;
+    private final CitaServiceQuery citaServiceQuery;
 
-    public MedicoResource(MedicoService medicoService, CitaService citaService, MedicoServiceQuery medicoServiceQuery) {
+    public MedicoResource(MedicoService medicoService, CitaService citaService, MedicoServiceQuery medicoServiceQuery, CitaServiceQuery citaServiceQuery) {
         this.medicoService = medicoService;
         this.citaService = citaService;
         this.medicoServiceQuery = medicoServiceQuery;
+        this.citaServiceQuery = citaServiceQuery;
     }
 
     /**
@@ -105,11 +111,10 @@ public class MedicoResource {
             throw new BadRequestAlertException("A new medico cannot already have an NUMERO DOCUMENTO and FRANJA HORARIA", ENTITY_NAME, "idmedicofranjaexists");
         }
         if (medicoDTO.getEspecialidadId() != null) {
-            CitaDTO citaDTO = new CitaDTO();
-            citaDTO.setMedicosId(medicoDTO.getId());
-            Optional<CitaDTO> citaDTO1 = citaService.findByMedicos(citaDTO);
-            if(citaDTO1.isPresent()) {
-                if (medicoDTO.getId() == citaDTO1.get().getMedicosId() && medicoDTO.getEspecialidadId() != citaDTO1.get().getEspecialidadId()) {
+            CitaCriteria citaCriteria = createCriteriaCita(medicoDTO);
+            List<Cita> listCita = citaServiceQuery.findByCriterialCita(citaCriteria);
+            if(listCita.size() != 0) {
+                if (medicoDTO.getId() == listCita.get(0).getMedicos().getId() && medicoDTO.getEspecialidadId() != listCita.get(0).getEspecialidad().getId()) {
                     throw new BadRequestAlertException("A new medico cannot already have diferent ESPECIALIDAD", ENTITY_NAME, "idmedicoESPEcitaexist1");
                 }
             }
@@ -118,6 +123,25 @@ public class MedicoResource {
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, medicoDTO.getId().toString()))
             .body(result);
+    }
+
+    /**
+     * parametro de busqueda
+     *
+     * @param medicoDTO the medicoDTO
+     * @return citaCriteria
+     */
+    private CitaCriteria createCriteriaCita(MedicoDTO medicoDTO){
+        CitaCriteria citaCriteria = new CitaCriteria();
+        if(medicoDTO!=null){
+
+            if(!StringUtils.isBlank(medicoDTO.getNombreCompleto())){
+                StringFilter filterCitaMedico = new StringFilter();
+                filterCitaMedico.setEquals(medicoDTO.getNombreCompleto());
+                citaCriteria.setMedico(filterCitaMedico);
+            }
+        }
+        return citaCriteria;
     }
 
     /**

@@ -11,6 +11,8 @@ import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { MedicoService } from './medico.service';
 import { MedicoDeleteDialogComponent } from './medico-delete-dialog.component';
 
+import { BusquedaMedico } from 'app/entities/model/busquedaMedico';
+
 @Component({
   selector: 'jhi-medico',
   templateUrl: './medico.component.html'
@@ -24,6 +26,16 @@ export class MedicoComponent implements OnInit, OnDestroy {
   predicate!: string;
   ascending!: boolean;
   ngbPaginationPage = 1;
+  franjaHorarias: any[] = [];
+  medicosList: any[] = [];
+
+  franjaHorariaElegido: any = null;
+
+  busqueda: BusquedaMedico = {
+    identificacion: '',
+    nombreCompleto: '',
+    franjaHoraria: ''
+  };
 
   constructor(
     protected medicoService: MedicoService,
@@ -55,10 +67,27 @@ export class MedicoComponent implements OnInit, OnDestroy {
       this.predicate = data.pagingParams.predicate;
       this.ngbPaginationPage = data.pagingParams.page;
       this.loadPage();
+      this.listaMedicos();
+      this.listaFranjaHorariasM();
     });
     this.registerChangeInMedicos();
   }
-
+  listaFranjaHorariasM(): void {
+    this.medicoService.franjaHorarias().subscribe(
+      data => {
+        this.franjaHorarias = data;
+      },
+      () => this.onError()
+    );
+  }
+  listaMedicos(): void {
+    this.medicoService.medicos(this.busqueda).subscribe(
+      data => {
+        this.medicosList = data;
+      },
+      () => this.onError()
+    );
+  }
   ngOnDestroy(): void {
     if (this.eventSubscriber) {
       this.eventManager.destroy(this.eventSubscriber);
@@ -102,5 +131,37 @@ export class MedicoComponent implements OnInit, OnDestroy {
 
   protected onError(): void {
     this.ngbPaginationPage = this.page;
+  }
+  onChangeMedico(data: IMedico[] | null, headers: HttpHeaders, page: number): void {
+    if (this.franjaHorariaElegido) {
+      this.busqueda.franjaHoraria = this.franjaHorariaElegido.franja;
+    } else {
+      this.busqueda.franjaHoraria = '';
+    }
+    this.medicos = data || [];
+  }
+
+  clearIdentificacion(): void {
+    this.busqueda.identificacion = '';
+    this.listaMedicos();
+  }
+  clearNombreCompleto(): void {
+    this.busqueda.nombreCompleto = '';
+    this.listaMedicos();
+  }
+
+  clear(): void {
+    this.busqueda.identificacion = '';
+    this.busqueda.nombreCompleto = '';
+    this.busqueda.franjaHoraria = '';
+    this.listaMedicos();
+  }
+  onChangeMedico1(): void {
+    if (this.franjaHorariaElegido) {
+      this.busqueda.franjaHoraria = this.franjaHorariaElegido.franja;
+    } else {
+      this.busqueda.franjaHoraria = '';
+    }
+    this.listaMedicos();
   }
 }
