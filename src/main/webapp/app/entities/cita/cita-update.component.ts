@@ -32,7 +32,7 @@ export class CitaUpdateComponent implements OnInit {
   medicos: IMedico[] = [];
   pacientes: IPaciente[] = [];
   fechaDp: any;
-
+  franjaHorariaElegida: any = null;
   editForm = this.fb.group({
     id: [],
     fecha: [null, [Validators.required]],
@@ -47,7 +47,6 @@ export class CitaUpdateComponent implements OnInit {
     protected citaService: CitaService,
     protected especialidadService: EspecialidadService,
     protected franjaHorariaService: FranjaHorariaService,
-    protected horarioService: HorarioService,
     protected medicoService: MedicoService,
     protected pacienteService: PacienteService,
     protected activatedRoute: ActivatedRoute,
@@ -62,15 +61,27 @@ export class CitaUpdateComponent implements OnInit {
 
       this.franjaHorariaService.query().subscribe((res: HttpResponse<IFranjaHoraria[]>) => (this.franjahorarias = res.body || []));
 
-      this.horarioService.query().subscribe((res: HttpResponse<IHorario[]>) => (this.horarios = res.body || []));
+      this.horariosList();
 
       this.medicoService.query().subscribe((res: HttpResponse<IMedico[]>) => (this.medicos = res.body || []));
 
       this.pacienteService.query().subscribe((res: HttpResponse<IPaciente[]>) => (this.pacientes = res.body || []));
     });
   }
+  horariosList(): void {
+    const FRANJA = this.franjaHorariaElegida;
+    this.citaService.queryHorarioByFranja(FRANJA).subscribe((res: HttpResponse<IHorario[]>) => (this.horarios = res.body || []));
+  }
+  onCitaHorario(): void {
+    this.horariosList();
+  }
 
   updateForm(cita: ICita): void {
+    if (cita.franjaHorariaId == null) {
+      this.franjaHorariaElegida = 1;
+    } else {
+      this.franjaHorariaElegida = cita.franjaHorariaId;
+    }
     this.editForm.patchValue({
       id: cita.id,
       fecha: cita.fecha,

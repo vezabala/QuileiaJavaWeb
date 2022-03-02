@@ -12,6 +12,6 @@ import java.util.Optional;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface HorarioRepository extends JpaRepository<Horario, Long> {
+public interface HorarioRepository extends JpaRepository<Horario, Long>,JpaSpecificationExecutor<Horario> {
     Optional<Horario> findByHora(String hora);
 }

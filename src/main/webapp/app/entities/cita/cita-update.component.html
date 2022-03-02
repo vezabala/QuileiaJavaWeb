@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="quileiaJavaWebApp.cita.especialidad" for="field_especialidad">Especialidad</label>
+                    <label class="form-control-label" for="field_especialidad">Seleccione para ver la lista de especialidades disponibles</label>
                     <select class="form-control" id="field_especialidad" name="especialidad" formControlName="especialidadId">
                         <option *ngIf="!editForm.get('especialidadId')!.value" [ngValue]="null" selected></option>
                         <option [ngValue]="especialidadOption.id" *ngFor="let especialidadOption of especialidads; trackBy: trackById">{{ especialidadOption.nombreEspecialidad }}</option>
@@ -42,8 +42,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="quileiaJavaWebApp.cita.franjaHoraria" for="field_franjaHoraria">Franja Horaria</label>
-                    <select class="form-control" id="field_franjaHoraria" name="franjaHoraria" formControlName="franjaHorariaId">
+                    <label class="form-control-label" for="field_franjaHoraria">Seleccione para ver la lista de franja Horarias disponibles</label>
+                    <select class="form-control" id="field_franjaHoraria" name="franjaHoraria" formControlName="franjaHorariaId" [(ngModel)]="franjaHorariaElegida" (change)="onCitaHorario()">
                         <option *ngIf="!editForm.get('franjaHorariaId')!.value" [ngValue]="null" selected></option>
                         <option [ngValue]="franjaHorariaOption.id" *ngFor="let franjaHorariaOption of franjahorarias; trackBy: trackById">{{ franjaHorariaOption.franja }}</option>
                     </select>
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="quileiaJavaWebApp.cita.horario" for="field_horario">Horario</label>
+                    <label class="form-control-label" for="field_horario">Seleccione para ver la lista de los horarios disponibles</label>
                     <select class="form-control" id="field_horario" name="horario" formControlName="horarioId">
                         <option *ngIf="!editForm.get('horarioId')!.value" [ngValue]="null" selected></option>
                         <option [ngValue]="horarioOption.id" *ngFor="let horarioOption of horarios; trackBy: trackById">{{ horarioOption.hora }}</option>
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="quileiaJavaWebApp.cita.medicos" for="field_medicos">Medicos</label>
+                    <label class="form-control-label" for="field_medicos">Seleccione para ver la lista de medicos</label>
                     <select class="form-control" id="field_medicos" name="medicos" formControlName="medicosId">
                         <option *ngIf="!editForm.get('medicosId')!.value" [ngValue]="null" selected></option>
                         <option [ngValue]="medicoOption.id" *ngFor="let medicoOption of medicos; trackBy: trackById">{{ medicoOption.nombreCompleto }}</option>
@@ -84,7 +84,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="quileiaJavaWebApp.cita.pacientes" for="field_pacientes">Pacientes</label>
+                    <label class="form-control-label" for="field_pacientes">Seleccione para ver la lista de pacientes</label>
                     <select class="form-control" id="field_pacientes" name="pacientes" formControlName="pacientesId">
                         <option *ngIf="!editForm.get('pacientesId')!.value" [ngValue]="null" selected></option>
                         <option [ngValue]="pacienteOption.id" *ngFor="let pacienteOption of pacientes; trackBy: trackById">{{ pacienteOption.nombreCompleto }}</option>

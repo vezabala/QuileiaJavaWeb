@@ -1,6 +1,6 @@
 package quileia.com.Criteria;
 
-import io.github.jhipster.service.filter.LongFilter;
+
 import io.github.jhipster.service.filter.StringFilter;
 
 public class CitaCriteria {

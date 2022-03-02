@@ -9,6 +9,7 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { ICita } from 'app/shared/model/cita.model';
 import { BusquedaCita } from 'app/entities/model/busquedaCita';
+import { IHorario } from 'app/shared/model/horario.model';
 
 type EntityResponseType = HttpResponse<ICita>;
 type EntityArrayResponseType = HttpResponse<ICita[]>;
@@ -82,5 +83,8 @@ export class CitaService {
   }
   citas(busqueda: BusquedaCita): Observable<any[]> {
     return this.http.post<any[]>(this.resourceUrl + '/list', busqueda);
+  }
+  queryHorarioByFranja(franja?: number): Observable<EntityArrayResponseType> {
+    return this.http.get<IHorario[]>(`${this.resourceUrl}/listHora/${franja}`, { observe: 'response' });
   }
 }

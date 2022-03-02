@@ -1,15 +1,13 @@
 package quileia.com.web.rest;
 
-import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.http.HttpStatus;
 import quileia.com.Criteria.CitaCriteria;
+import quileia.com.Criteria.HorarioCriteria;
 import quileia.com.domain.Cita;
-import quileia.com.service.CitaService;
-import quileia.com.service.CitaServiceQuery;
-import quileia.com.service.HorarioService;
-import quileia.com.service.MedicoService;
+import quileia.com.domain.Horario;
+import quileia.com.service.*;
 import quileia.com.service.dto.*;
 import quileia.com.web.rest.errors.BadRequestAlertException;
 
@@ -50,12 +48,16 @@ public class CitaResource {
     private final MedicoService medicoService;
     private final HorarioService horarioService;
     private final CitaServiceQuery citaServiceQuery;
+    private final HorarioServiceQuery horarioServiceQuery;
+    private final FranjaHorariaService franjaHorariaService;
 
-    public CitaResource(CitaService citaService, MedicoService medicoService, HorarioService horarioService, CitaServiceQuery citaServiceQuery) {
+    public CitaResource(CitaService citaService, MedicoService medicoService, HorarioService horarioService, CitaServiceQuery citaServiceQuery, HorarioServiceQuery horarioServiceQuery, FranjaHorariaService franjaHorariaService) {
         this.citaService = citaService;
         this.medicoService = medicoService;
         this.horarioService = horarioService;
         this.citaServiceQuery = citaServiceQuery;
+        this.horarioServiceQuery = horarioServiceQuery;
+        this.franjaHorariaService = franjaHorariaService;
     }
 
     /**
@@ -225,5 +227,26 @@ public class CitaResource {
             }
         }
         return citaCriteria;
+    }
+    @GetMapping("/citas/listHora/{franja}")
+    public ResponseEntity<List<Horario>> List(@PathVariable Long franja){
+        Optional<FranjaHorariaDTO> franjaHorariaDTO = franjaHorariaService.findOne(franja);
+        BusquedaHorarioDTO busquedaHorarioDTO = new BusquedaHorarioDTO();
+        busquedaHorarioDTO.setFranjaHoraria(franjaHorariaDTO.get().getFranja());
+        HorarioCriteria horarioCriteria = createCriteriaHorario(busquedaHorarioDTO);
+        List<Horario> list = horarioServiceQuery.findByCriterial(horarioCriteria);
+        return new ResponseEntity<List<Horario>>(list, HttpStatus.OK);
+    }
+
+    private HorarioCriteria createCriteriaHorario(BusquedaHorarioDTO busquedaHorarioDTO){
+        HorarioCriteria horarioCriteria = new HorarioCriteria();
+        if(busquedaHorarioDTO!=null){
+            if(!StringUtils.isBlank(busquedaHorarioDTO.getFranjaHoraria())){
+                StringFilter filterCitaFranjaHor = new StringFilter();
+                filterCitaFranjaHor.setEquals(busquedaHorarioDTO.getFranjaHoraria());
+                horarioCriteria.setFranjaHoraria(filterCitaFranjaHor);
+            }
+        }
+        return horarioCriteria;
     }
 }

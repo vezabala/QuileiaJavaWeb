@@ -132,14 +132,6 @@ export class MedicoComponent implements OnInit, OnDestroy {
   protected onError(): void {
     this.ngbPaginationPage = this.page;
   }
-  onChangeMedico(data: IMedico[] | null, headers: HttpHeaders, page: number): void {
-    if (this.franjaHorariaElegido) {
-      this.busqueda.franjaHoraria = this.franjaHorariaElegido.franja;
-    } else {
-      this.busqueda.franjaHoraria = '';
-    }
-    this.medicos = data || [];
-  }
 
   clearIdentificacion(): void {
     this.busqueda.identificacion = '';
