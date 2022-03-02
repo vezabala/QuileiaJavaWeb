@@ -5,8 +5,10 @@ import io.micrometer.core.instrument.util.StringUtils;
 import org.springframework.http.HttpStatus;
 import quileia.com.Criteria.CitaCriteria;
 import quileia.com.Criteria.HorarioCriteria;
+import quileia.com.Criteria.MedicoCriteria;
 import quileia.com.domain.Cita;
 import quileia.com.domain.Horario;
+import quileia.com.domain.Medico;
 import quileia.com.service.*;
 import quileia.com.service.dto.*;
 import quileia.com.web.rest.errors.BadRequestAlertException;
@@ -50,14 +52,18 @@ public class CitaResource {
     private final CitaServiceQuery citaServiceQuery;
     private final HorarioServiceQuery horarioServiceQuery;
     private final FranjaHorariaService franjaHorariaService;
+    private final EspecialidadService especialidadService;
+    private  final MedicoServiceQuery medicoServiceQuery;
 
-    public CitaResource(CitaService citaService, MedicoService medicoService, HorarioService horarioService, CitaServiceQuery citaServiceQuery, HorarioServiceQuery horarioServiceQuery, FranjaHorariaService franjaHorariaService) {
+    public CitaResource(CitaService citaService, MedicoService medicoService, HorarioService horarioService, CitaServiceQuery citaServiceQuery, HorarioServiceQuery horarioServiceQuery, FranjaHorariaService franjaHorariaService, EspecialidadService especialidadService, MedicoServiceQuery medicoServiceQuery) {
         this.citaService = citaService;
         this.medicoService = medicoService;
         this.horarioService = horarioService;
         this.citaServiceQuery = citaServiceQuery;
         this.horarioServiceQuery = horarioServiceQuery;
         this.franjaHorariaService = franjaHorariaService;
+        this.especialidadService = especialidadService;
+        this.medicoServiceQuery = medicoServiceQuery;
     }
 
     /**
@@ -203,6 +209,13 @@ public class CitaResource {
         citaService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * {@code Post  /citas(list} : get all the citas.
+     *
+     * @param busquedaCitaDTO of BusquedaCitaDTO
+     * @return ResponseEntity of list citas
+     */
     @PostMapping("/citas/list")
     public ResponseEntity<List<Cita>> List(@RequestBody BusquedaCitaDTO busquedaCitaDTO){
         CitaCriteria citaCriteria = createCriteriaCita(busquedaCitaDTO);
@@ -228,6 +241,12 @@ public class CitaResource {
         }
         return citaCriteria;
     }
+    /**
+     * {@code Get  /citas/listHora} : get all the horarios.
+     *
+     * @param franja of id franja Horaria
+     * @return Response Entity of list horarios
+     */
     @GetMapping("/citas/listHora/{franja}")
     public ResponseEntity<List<Horario>> List(@PathVariable Long franja){
         Optional<FranjaHorariaDTO> franjaHorariaDTO = franjaHorariaService.findOne(franja);
@@ -248,5 +267,41 @@ public class CitaResource {
             }
         }
         return horarioCriteria;
+    }
+
+    /**
+     * {@code Get  /citas/listMedico} : get all the medicos.
+     *
+     * @param espe of id Especialidad
+     * @param franja of id Franja Horaria
+     * @return Response Entity of list medicos
+     */
+    @GetMapping("/citas/listMedico/{espe}/{franja}")
+    public ResponseEntity<List<Medico>> List(@PathVariable Long espe,@PathVariable Long franja){
+        Optional<EspecialidadDTO> especialidadDTO = especialidadService.findOne(espe);
+        Optional<FranjaHorariaDTO> franjaHorariaDTO = franjaHorariaService.findOne(franja);
+        BusquedaMedicoDto busquedaMedicoDto = new BusquedaMedicoDto();
+        busquedaMedicoDto.setEspecialidad(especialidadDTO.get().getNombreEspecialidad());
+        busquedaMedicoDto.setFranjaHoraria(franjaHorariaDTO.get().getFranja());
+        MedicoCriteria medicoCriteria = createCriteriaMedico(busquedaMedicoDto);
+        List<Medico> list = medicoServiceQuery.findByCriterial(medicoCriteria);
+        return new ResponseEntity<List<Medico>>(list, HttpStatus.OK);
+    }
+
+    private MedicoCriteria createCriteriaMedico(BusquedaMedicoDto busquedaMedicoDto){
+        MedicoCriteria medicoCriteria = new MedicoCriteria();
+        if(busquedaMedicoDto!=null){
+            if(!StringUtils.isBlank(busquedaMedicoDto.getEspecialidad())){
+                StringFilter filterMedicoEspecialidad = new StringFilter();
+                filterMedicoEspecialidad.setEquals(busquedaMedicoDto.getEspecialidad());
+                medicoCriteria.setEspecialidad(filterMedicoEspecialidad);
+            }
+            if(!StringUtils.isBlank(busquedaMedicoDto.getFranjaHoraria())){
+                StringFilter filterMedicoFranjaHor = new StringFilter();
+                filterMedicoFranjaHor.setEquals(busquedaMedicoDto.getFranjaHoraria());
+                medicoCriteria.setFranjaHoraria(filterMedicoFranjaHor);
+            }
+        }
+        return medicoCriteria;
     }
 }

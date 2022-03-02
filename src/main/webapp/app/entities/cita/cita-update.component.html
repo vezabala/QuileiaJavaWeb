@@ -29,7 +29,7 @@
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_especialidad">Seleccione para ver la lista de especialidades disponibles</label>
-                    <select class="form-control" id="field_especialidad" name="especialidad" formControlName="especialidadId">
+                    <select class="form-control" id="field_especialidad" name="especialidad" formControlName="especialidadId" [(ngModel)]="especialidadElegida" (change)="onCitaMedico()">>
                         <option *ngIf="!editForm.get('especialidadId')!.value" [ngValue]="null" selected></option>
                         <option [ngValue]="especialidadOption.id" *ngFor="let especialidadOption of especialidads; trackBy: trackById">{{ especialidadOption.nombreEspecialidad }}</option>
                     </select>
@@ -56,20 +56,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_horario">Seleccione para ver la lista de los horarios disponibles</label>
-                    <select class="form-control" id="field_horario" name="horario" formControlName="horarioId">
-                        <option *ngIf="!editForm.get('horarioId')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="horarioOption.id" *ngFor="let horarioOption of horarios; trackBy: trackById">{{ horarioOption.hora }}</option>
-                    </select>
-                </div>
-                <div *ngIf="editForm.get('horarioId')!.invalid && (editForm.get('horarioId')!.dirty || editForm.get('horarioId')!.touched)">
-                    <small class="form-text text-danger"
-                           *ngIf="editForm.get('horarioId')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
-
-                <div class="form-group">
                     <label class="form-control-label" for="field_medicos">Seleccione para ver la lista de medicos</label>
                     <select class="form-control" id="field_medicos" name="medicos" formControlName="medicosId">
                         <option *ngIf="!editForm.get('medicosId')!.value" [ngValue]="null" selected></option>
@@ -79,6 +65,20 @@
                 <div *ngIf="editForm.get('medicosId')!.invalid && (editForm.get('medicosId')!.dirty || editForm.get('medicosId')!.touched)">
                     <small class="form-text text-danger"
                            *ngIf="editForm.get('medicosId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_horario">Seleccione para ver la lista de los horarios disponibles</label>
+                    <select class="form-control" id="field_horario" name="horario" formControlName="horarioId">
+                        <option *ngIf="!editForm.get('horarioId')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="horarioOption.id" *ngFor="let horarioOption of horarios; trackBy: trackById">{{ horarioOption.hora }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('horarioId')!.invalid && (editForm.get('horarioId')!.dirty || editForm.get('horarioId')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('horarioId')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

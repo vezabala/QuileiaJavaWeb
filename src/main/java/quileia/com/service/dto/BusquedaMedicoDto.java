@@ -3,6 +3,7 @@ package quileia.com.service.dto;
 public class BusquedaMedicoDto {
     private String identificacion;
     private String nombreCompleto;
+    private String especialidad;
     private String franjaHoraria;
 
     public String getIdentificacion() {
@@ -19,6 +20,14 @@ public class BusquedaMedicoDto {
 
     public void setNombreCompleto(String nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
     }
 
     public String getFranjaHoraria() {

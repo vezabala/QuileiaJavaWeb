@@ -5,6 +5,7 @@ import io.github.jhipster.service.filter.StringFilter;
 public class MedicoCriteria {
     private StringFilter identificacion;
     private StringFilter nombreCompleto;
+    private StringFilter especialidad;
     private StringFilter franjaHoraria;
 
     public StringFilter getIdentificacion() {
@@ -21,6 +22,14 @@ public class MedicoCriteria {
 
     public void setNombreCompleto(StringFilter nombreCompleto) {
         this.nombreCompleto = nombreCompleto;
+    }
+
+    public StringFilter getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(StringFilter especialidad) {
+        this.especialidad = especialidad;
     }
 
     public StringFilter getFranjaHoraria() {

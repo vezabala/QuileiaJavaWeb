@@ -6,10 +6,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import quileia.com.Criteria.MedicoCriteria;
-import quileia.com.domain.FranjaHoraria;
-import quileia.com.domain.FranjaHoraria_;
-import quileia.com.domain.Medico;
-import quileia.com.domain.Medico_;
+import quileia.com.domain.*;
 import quileia.com.repository.MedicoRepository;
 
 import javax.persistence.metamodel.SingularAttribute;
@@ -36,6 +33,10 @@ public class MedicoServiceQuery extends QueryService<Medico> {
             if(criteria.getNombreCompleto() != null){
                 specification =
                     specification.and(buildStringSpecification(criteria.getNombreCompleto() , Medico_.nombreCompleto));
+            }
+            if(criteria.getEspecialidad() != null){
+                specification =
+                    specification.and(buildReferringEntitySpecification(criteria.getEspecialidad(), Medico_.especialidad , Especialidad_.nombreEspecialidad));
             }
             if(criteria.getFranjaHoraria() != null){
                 specification =

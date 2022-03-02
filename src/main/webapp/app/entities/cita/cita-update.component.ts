@@ -12,7 +12,6 @@ import { EspecialidadService } from 'app/entities/especialidad/especialidad.serv
 import { IFranjaHoraria } from 'app/shared/model/franja-horaria.model';
 import { FranjaHorariaService } from 'app/entities/franja-horaria/franja-horaria.service';
 import { IHorario } from 'app/shared/model/horario.model';
-import { HorarioService } from 'app/entities/horario/horario.service';
 import { IMedico } from 'app/shared/model/medico.model';
 import { MedicoService } from 'app/entities/medico/medico.service';
 import { IPaciente } from 'app/shared/model/paciente.model';
@@ -32,6 +31,7 @@ export class CitaUpdateComponent implements OnInit {
   medicos: IMedico[] = [];
   pacientes: IPaciente[] = [];
   fechaDp: any;
+  especialidadElegida: any = null;
   franjaHorariaElegida: any = null;
   editForm = this.fb.group({
     id: [],
@@ -63,7 +63,7 @@ export class CitaUpdateComponent implements OnInit {
 
       this.horariosList();
 
-      this.medicoService.query().subscribe((res: HttpResponse<IMedico[]>) => (this.medicos = res.body || []));
+      this.medicosList();
 
       this.pacienteService.query().subscribe((res: HttpResponse<IPaciente[]>) => (this.pacientes = res.body || []));
     });
@@ -74,9 +74,23 @@ export class CitaUpdateComponent implements OnInit {
   }
   onCitaHorario(): void {
     this.horariosList();
+    this.medicosList();
+  }
+  medicosList(): void {
+    const FRANJA = this.franjaHorariaElegida;
+    const ESPE = this.especialidadElegida;
+    this.citaService.queryMedicosByEspeFranja(ESPE, FRANJA).subscribe((res: HttpResponse<IMedico[]>) => (this.medicos = res.body || []));
+  }
+  onCitaMedico(): void {
+    this.medicosList();
   }
 
   updateForm(cita: ICita): void {
+    if (cita.especialidadId == null) {
+      this.especialidadElegida = 1;
+    } else {
+      this.especialidadElegida = cita.especialidadId;
+    }
     if (cita.franjaHorariaId == null) {
       this.franjaHorariaElegida = 1;
     } else {

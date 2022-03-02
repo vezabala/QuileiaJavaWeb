@@ -87,4 +87,7 @@ export class CitaService {
   queryHorarioByFranja(franja?: number): Observable<EntityArrayResponseType> {
     return this.http.get<IHorario[]>(`${this.resourceUrl}/listHora/${franja}`, { observe: 'response' });
   }
+  queryMedicosByEspeFranja(especialidad?: number, franja?: number): Observable<EntityArrayResponseType> {
+    return this.http.get<IHorario[]>(`${this.resourceUrl}/listMedico/${especialidad}/${franja}`, { observe: 'response' });
+  }
 }
