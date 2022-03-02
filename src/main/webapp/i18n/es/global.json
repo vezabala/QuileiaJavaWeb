@@ -152,6 +152,7 @@
     "idhorarioFRANJAexist": "Esta hora no corresponde a la franja horaria selecionada",
     "idmedicoESPEcitaexist1": "El doctor tiene citas programadas con la otra especialidad",
     "idmedicoFRANJAcitaexist1": "El doctor tiene citas programadas para la otra franja horaria ",
+    "idpacienteespecialidadexist": "El paciente ya tiene citas programadas con esta especialidad",
     "idnull": "ID inválido",
     "file": {
       "could.not.extract": "Could not extract file",

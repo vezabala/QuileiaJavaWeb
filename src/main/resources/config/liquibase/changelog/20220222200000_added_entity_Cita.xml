@@ -38,6 +38,7 @@
         <addUniqueConstraint tableName="cita" constraintName="uk_medi_hora_fecha" columnNames="medicos_id,horario_id,fecha"/>
         <addUniqueConstraint tableName="cita" constraintName="uk_paci_hora_fecha" columnNames="pacientes_id,horario_id,fecha"/>
         <addUniqueConstraint tableName="cita" constraintName="uk_paci_medi" columnNames="pacientes_id,medicos_id"/>
+        <addUniqueConstraint tableName="cita" constraintName="uk_paci_espe" columnNames="pacientes_id,especialidad_id"/>
     </changeSet>
 
     <changeSet id="20220222200000-1-relations" author="jhipster">

@@ -18,4 +18,5 @@ public interface CitaRepository extends JpaRepository<Cita, Long> ,JpaSpecificat
     Optional<Cita> findByPacientesAndHorarioAndFecha(Paciente paciente, Horario horario, LocalDate fecha);
     Optional<Cita> findByPacientesAndMedicos(Paciente paciente, Medico medico);
     Optional<Cita>  findByMedicos(Medico medico);
+    Optional<Cita> findByPacientesAndEspecialidad(Paciente paciente, Especialidad especialidad);
 }

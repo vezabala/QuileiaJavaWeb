@@ -88,6 +88,9 @@ public class CitaResource {
         if (citaService.findByPacientesAndMedicos(citaDTO).isPresent()) {
             throw new BadRequestAlertException("A new cita cannot already have a PACIENTE and MEDICO", ENTITY_NAME, "idpacientemedicoexist");
         }
+        if (citaService.findByPacientesAndEspecialidad(citaDTO).isPresent()) {
+            throw new BadRequestAlertException("A new cita cannot already have a PACIENTE and ESPECIALIDAD", ENTITY_NAME, "idpacienteespecialidadexist");
+        }
         if (citaDTO.getMedicosId() != null) {
             Optional<MedicoDTO> medicoDTO1 = medicoService.findOne(citaDTO.getMedicosId());
             if(citaDTO.getMedicosId()== medicoDTO1.get().getId() && citaDTO.getEspecialidadId() != medicoDTO1.get().getEspecialidadId()) {
@@ -141,6 +144,11 @@ public class CitaResource {
             .findByPacientesAndMedicos(citaDTO);
         if (citaDTOtemp3.isPresent() && (!citaDTOtemp3.get().getId().equals(citaDTO.getId()))) {
             throw new BadRequestAlertException("A new cita cannot already have a PACIENTE and MEDICO", ENTITY_NAME, "idpacientemedicoexist");
+        }
+        Optional<CitaDTO> citaDTOtemp6 = citaService
+            .findByPacientesAndEspecialidad(citaDTO);
+        if (citaDTOtemp6.isPresent() && (!citaDTOtemp6.get().getId().equals(citaDTO.getId()))) {
+            throw new BadRequestAlertException("A new cita cannot already have a PACIENTE and ESPECIALIDAD", ENTITY_NAME, "idpacienteespecialidadexist");
         }
         Long citaDTOTemp4= citaDTO.getMedicosId();
         if (citaDTOTemp4 != null) {

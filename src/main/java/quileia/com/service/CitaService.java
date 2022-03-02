@@ -104,6 +104,15 @@ public class CitaService {
             citaMapper.toEntity(citaDTO).getMedicos())
             .map(citaMapper::toDto);
     }
+    @Transactional(readOnly = true)
+    public Optional<CitaDTO> findByPacientesAndEspecialidad(CitaDTO citaDTO) {
+        log.debug("Request to get Cita : {}", citaDTO.getPacientesId() + ", "
+            + citaDTO.getEspecialidadId());
+        return citaRepository.findByPacientesAndEspecialidad(
+            citaMapper.toEntity(citaDTO).getPacientes(),
+            citaMapper.toEntity(citaDTO).getEspecialidad())
+            .map(citaMapper::toDto);
+    }
 
     /**
      * get one cina by paciente and medico
