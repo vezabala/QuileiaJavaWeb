@@ -1,0 +1,4 @@
+id;iniciales;nombre_documento;estado_tipo_documento
+1;CC;Cedula de ciudadania;ACTIVO
+2;CE;Cedula de extrangeria;ACTIVO
+3;PA;Pasaporte;ACTIVO

@@ -129,14 +129,14 @@
 }
 .app-loading .lds-pacman > div:nth-child(1) div {
   position: absolute;
-  top: 97px;
+  top: 70px;
   left: -8px;
-  width: 24px;
-  height: 10px;
-  background-image: url('../images/logo-jhipster.png');
+  width: 70px;
+  height: 70px;
+  background-image: url('../images/fuego.png');
   background-size: contain;
-  -webkit-animation: lds-pacman-3 1s linear infinite;
-  animation: lds-pacman-3 1.5s linear infinite;
+  -webkit-animation: lds-pacman-3 0.4s linear infinite;
+  animation: lds-pacman-3 0.5s linear infinite;
 }
 .app-loading .lds-pacman > div:nth-child(1) div:nth-child(1) {
   -webkit-animation-delay: -0.67s;

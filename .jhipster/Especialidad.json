@@ -1,0 +1,50 @@
+{
+    "name": "Especialidad",
+    "fields": [
+        {
+            "fieldName": "nombreEspecialidad",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength",
+                "unique"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldName": "estadoEspecialidad",
+            "fieldType": "Estado",
+            "fieldValues": "ACTIVO,INACTIVO",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "medico",
+            "otherEntityRelationshipName": "especialidad",
+            "relationshipName": "medicos"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "cita",
+            "otherEntityRelationshipName": "especialidad",
+            "relationshipName": "citas"
+        }
+    ],
+    "changelogDate": "20220222195700",
+    "entityTableName": "especialidad",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
+}

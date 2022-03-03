@@ -1,0 +1,4 @@
+id;franja;estado_franja_horaria
+1;6:00am - 2:00pm;ACTIVO
+2;2:00pm - 10:00pm;ACTIVO
+3;10:00pm - 6:00am;ACTIVO

@@ -1,0 +1,28 @@
+{
+  "quileiaJavaWebApp": {
+    "paciente": {
+      "home": {
+        "title": "Pacientes",
+        "createLabel": "Crear nuevo Paciente",
+        "createOrEditLabel": "Crear o editar Paciente",
+        "notFound": "Ningún Pacientes encontrado"
+      },
+      "created": "Un nuevo Paciente ha sido creado con el identificador {{ param }}",
+      "updated": "Un Paciente ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Paciente ha sido eliminado con el identificador {{ param }} Actualice la tabla",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Paciente {{ id }}?"
+      },
+      "detail": {
+        "title": "Paciente"
+      },
+      "nombreCompleto": "Nombre Completo",
+      "fechaNacimiento": "Fecha Nacimiento",
+      "identificacion": "Identificacion",
+      "eps": "Eps",
+      "historiaClinica": "Historia Clinica",
+      "citas": "Citas",
+      "tipoDocumento": "Tipo Documento"
+    }
+  }
+}

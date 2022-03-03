@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="horario">
+            <h2><span jhiTranslate="quileiaJavaWebApp.horario.detail.title">Horario</span> {{ horario.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="quileiaJavaWebApp.horario.hora">Hora</span></dt>
+                <dd>
+                    <span>{{ horario.hora }}</span>
+                </dd>
+                <dt><span jhiTranslate="quileiaJavaWebApp.horario.franjaHoraria">Franja Horaria</span></dt>
+                <dd>
+                    <div *ngIf="horario.franjaHorariaId">
+                        <a [routerLink]="['/franja-horaria', horario.franjaHorariaId, 'view']">{{ horario.franjaHorariaFranja }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/horario', horario.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

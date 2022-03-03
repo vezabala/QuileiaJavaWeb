@@ -37,9 +37,9 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/QuileiaJavaWeb
-    username: QuileiaJavaWeb
-    password:
+    url: jdbc:postgresql://localhost:5432/Quileia
+    username: postgres
+    password: 12345
     hikari:
       poolName: Hikari
       auto-commit: false

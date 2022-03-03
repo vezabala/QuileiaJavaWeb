@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="cita">
+            <h2><span jhiTranslate="quileiaJavaWebApp.cita.detail.title">Cita</span> {{ cita.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="quileiaJavaWebApp.cita.fecha">Fecha</span></dt>
+                <dd>
+                    <span>{{ cita.fecha | date:'mediumDate' }}</span>
+                </dd>
+                <dt><span jhiTranslate="quileiaJavaWebApp.cita.especialidad">Especialidad</span></dt>
+                <dd>
+                    <div *ngIf="cita.especialidadId">
+                        <a [routerLink]="['/especialidad', cita.especialidadId, 'view']">{{ cita.especialidadNombreEspecialidad }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="quileiaJavaWebApp.cita.horario">Horario</span></dt>
+                <dd>
+                    <div *ngIf="cita.horarioId">
+                        <a [routerLink]="['/horario', cita.horarioId, 'view']">{{ cita.horarioHora }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="quileiaJavaWebApp.cita.medicos">Medicos</span></dt>
+                <dd>
+                    <div *ngIf="cita.medicosId">
+                        <a [routerLink]="['/medico', cita.medicosId, 'view']">{{ cita.medicosNombreCompleto }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="quileiaJavaWebApp.cita.pacientes">Pacientes</span></dt>
+                <dd>
+                    <div *ngIf="cita.pacientesId">
+                        <a [routerLink]="['/paciente', cita.pacientesId, 'view']">{{ cita.pacientesNombreCompleto }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/cita', cita.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

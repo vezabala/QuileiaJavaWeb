@@ -1,0 +1,136 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="quileiaJavaWebApp.medico.home.title">Medicos</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-medico" [routerLink]="['/medico/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="quileiaJavaWebApp.medico.home.createLabel">
+            Create a new Medico
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="medicos?.length === 0">
+        <span jhiTranslate="quileiaJavaWebApp.medico.home.notFound">No medicos found</span>
+    </div>
+
+    <div class="container mb-5">
+        <form>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="identificacion"><b>identificación:</b></label>
+                        <div class="input-group">
+                            <button class="btn btn-outline-danger" (click)="clearIdentificacion()"
+                                    [disabled]="!busqueda.identificacion">Vaciar</button>
+                            <input type="text" class="form-control" name="identificacion" id="identificacion"
+                                   [(ngModel)]="busqueda.identificacion">
+                            <button class="btn btn-outline-success" (click)="listaMedicos()"
+                                    [disabled]="!busqueda.identificacion">Filtrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="nombreCompleto"><b>Nombre completo:</b></label>
+                        <div class="input-group">
+                            <button class="btn btn-outline-danger" (click)="clearNombreCompleto()"
+                                    [disabled]="!busqueda.nombreCompleto">Vaciar</button>
+                            <input type="text" class="form-control" name="nombreCompleto" id="nombreCompleto"
+                                   [(ngModel)]="busqueda.nombreCompleto">
+                            <button class="btn btn-outline-success" (click)="listaMedicos()"
+                                    [disabled]="!busqueda.nombreCompleto">Filtrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="franjaHorariaElegido"><b>Franja Horaria:</b></label>
+                        <select class="form-control" name="franjaHorariaElegido" id="franjaHorariaElegido"
+                                [(ngModel)]="franjaHorariaElegido" (change)="onChangeMedico1()">
+                            <option [ngValue]="null" selected>Elige franja horaria</option>
+                            <option [ngValue]="franjaHorarias" *ngFor="let franjaHorarias of franjaHorarias">{{franjaHorarias.franja}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col4">
+                    <label for="reseter"><b>Resetear:</b></label>
+                    <button class="btn btn-outline-danger form-control" (click)="clear()" id="reseter">Actualizar tabala y borrar Filtros</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="medicos?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="tipoDocumentoNombreDocumento"><span jhiTranslate="quileiaJavaWebApp.medico.tipoDocumento">Tipo Documento</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="identificacion"><span jhiTranslate="quileiaJavaWebApp.medico.identificacion">Identificacion</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="nombreCompleto"><span jhiTranslate="quileiaJavaWebApp.medico.nombreCompleto">Nombre Completo</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="tarjetaProfesional"><span jhiTranslate="quileiaJavaWebApp.medico.tarjetaProfesional">Tarjeta Profesional</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="anosDeExperiencia"><span jhiTranslate="quileiaJavaWebApp.medico.anosDeExperiencia">Anos De Experiencia</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="especialidadNombreEspecialidad"><span jhiTranslate="quileiaJavaWebApp.medico.especialidad">Especialidad</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="franjaHorariaFranja"><span jhiTranslate="quileiaJavaWebApp.medico.franjaHoraria">Franja Horaria</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let medico of medicosList">
+                    <td><a [routerLink]="['/medico', medico.id, 'view']">{{ medico.id }}</a></td>
+                    <td>{{ medico.tipoDocumento.nombreDocumento }}</td>
+                    <td>{{ medico.identificacion }}</td>
+                    <td>{{ medico.nombreCompleto }}</td>
+                    <td>{{ medico.tarjetaProfesional }}</td>
+                    <td>{{ medico.anosDeExperiencia }}</td>
+                    <td>{{medico.especialidad.nombreEspecialidad}}</td>
+                    <td>{{ medico.franjaHoraria.franja }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/medico', medico.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/medico', medico.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(medico)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="medicos?.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

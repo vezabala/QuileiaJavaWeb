@@ -1,0 +1,56 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-especialidad-heading" jhiTranslate="quileiaJavaWebApp.especialidad.home.createOrEditLabel">Create or edit a Especialidad</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="quileiaJavaWebApp.especialidad.nombreEspecialidad" for="field_nombreEspecialidad">Nombre Especialidad</label>
+                    <input type="text" class="form-control" name="nombreEspecialidad" id="field_nombreEspecialidad"
+                           formControlName="nombreEspecialidad"/>
+                    <div *ngIf="editForm.get('nombreEspecialidad')!.invalid && (editForm.get('nombreEspecialidad')!.dirty || editForm.get('nombreEspecialidad')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nombreEspecialidad')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('nombreEspecialidad')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="quileiaJavaWebApp.especialidad.estadoEspecialidad" for="field_estadoEspecialidad">Estado Especialidad</label>
+                    <select class="form-control" name="estadoEspecialidad" formControlName="estadoEspecialidad" id="field_estadoEspecialidad">
+                        <option value="ACTIVO">{{ 'quileiaJavaWebApp.Estado.ACTIVO' | translate }}</option>
+                        <option value="INACTIVO">{{ 'quileiaJavaWebApp.Estado.INACTIVO' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('estadoEspecialidad')!.invalid && (editForm.get('estadoEspecialidad')!.dirty || editForm.get('estadoEspecialidad')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('estadoEspecialidad')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
