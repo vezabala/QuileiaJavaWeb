@@ -9,7 +9,7 @@
       },
       "created": "Un nuevo Cita ha sido creado con el identificador {{ param }}",
       "updated": "Un Cita ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Cita ha sido eliminado con el identificador {{ param }}",
+      "deleted": "Un Cita ha sido eliminado con el identificador {{ param }} Actualice la tabla",
       "delete": {
         "question": "¿Seguro que quiere eliminar Cita {{ id }}?"
       },

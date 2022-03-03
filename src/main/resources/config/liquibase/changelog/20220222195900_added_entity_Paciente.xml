@@ -16,7 +16,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="nombre_completo" type="varchar(250)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="ux_paciente_nombre_completo" />
+                <constraints nullable="false" />
             </column>
             <column name="fecha_nacimiento" type="date">
                 <constraints nullable="false" />

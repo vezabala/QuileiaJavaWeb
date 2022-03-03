@@ -16,9 +16,9 @@ type EntityArrayResponseType = HttpResponse<ICita[]>;
 
 @Injectable({ providedIn: 'root' })
 export class CitaService {
-  public resourceUrl = SERVER_API_URL + 'api/citas';
-  public medicoUrl = SERVER_API_URL + 'api/medicos';
-  public pacienteUrl = SERVER_API_URL + 'api/pacientes';
+  public resourceUrl = SERVER_API_URL + 'apis/citas';
+  public medicoUrl = SERVER_API_URL + 'apis/medicos';
+  public pacienteUrl = SERVER_API_URL + 'apis/pacientes';
 
   constructor(protected http: HttpClient) {}
 

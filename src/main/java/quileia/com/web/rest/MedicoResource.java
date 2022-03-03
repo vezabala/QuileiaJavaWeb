@@ -40,7 +40,7 @@ import java.util.Optional;
  * REST controller for managing {@link quileia.com.domain.Medico}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apis")
 public class MedicoResource {
 
     private final Logger log = LoggerFactory.getLogger(MedicoResource.class);

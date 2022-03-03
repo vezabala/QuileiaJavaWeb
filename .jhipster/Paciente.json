@@ -6,8 +6,7 @@
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
-                "maxlength",
-                "unique"
+                "maxlength"
             ],
             "fieldValidateRulesMaxlength": "250"
         },

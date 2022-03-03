@@ -13,7 +13,7 @@ type EntityArrayResponseType = HttpResponse<IMedico[]>;
 
 @Injectable({ providedIn: 'root' })
 export class MedicoService {
-  public resourceUrl = SERVER_API_URL + 'api/medicos';
+  public resourceUrl = SERVER_API_URL + 'apis/medicos';
   public franjaHorariaUrl = SERVER_API_URL + 'api/franja-horarias';
 
   constructor(protected http: HttpClient) {}

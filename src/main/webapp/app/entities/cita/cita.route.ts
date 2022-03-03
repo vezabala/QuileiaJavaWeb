@@ -5,8 +5,6 @@ import { JhiResolvePagingParams } from 'ng-jhipster';
 import { Observable, of, EMPTY } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 
-import { Authority } from 'app/shared/constants/authority.constants';
-import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { ICita, Cita } from 'app/shared/model/cita.model';
 import { CitaService } from './cita.service';
 import { CitaComponent } from './cita.component';
@@ -43,7 +41,6 @@ export const citaRoute: Routes = [
       pagingParams: JhiResolvePagingParams
     },
     data: {
-      authorities: [],
       defaultSort: 'id,asc',
       pageTitle: 'quileiaJavaWebApp.cita.home.title'
     }
@@ -55,7 +52,6 @@ export const citaRoute: Routes = [
       cita: CitaResolve
     },
     data: {
-      authorities: [],
       pageTitle: 'quileiaJavaWebApp.cita.home.title'
     }
   },
@@ -66,7 +62,6 @@ export const citaRoute: Routes = [
       cita: CitaResolve
     },
     data: {
-      authorities: [],
       pageTitle: 'quileiaJavaWebApp.cita.home.title'
     }
   },
@@ -77,7 +72,6 @@ export const citaRoute: Routes = [
       cita: CitaResolve
     },
     data: {
-      authorities: [],
       pageTitle: 'quileiaJavaWebApp.cita.home.title'
     }
   }

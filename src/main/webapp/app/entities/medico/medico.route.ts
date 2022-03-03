@@ -5,8 +5,6 @@ import { JhiResolvePagingParams } from 'ng-jhipster';
 import { Observable, of, EMPTY } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 
-import { Authority } from 'app/shared/constants/authority.constants';
-import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { IMedico, Medico } from 'app/shared/model/medico.model';
 import { MedicoService } from './medico.service';
 import { MedicoComponent } from './medico.component';
@@ -43,7 +41,6 @@ export const medicoRoute: Routes = [
       pagingParams: JhiResolvePagingParams
     },
     data: {
-      authorities: [],
       defaultSort: 'id,asc',
       pageTitle: 'quileiaJavaWebApp.medico.home.title'
     }
@@ -55,7 +52,6 @@ export const medicoRoute: Routes = [
       medico: MedicoResolve
     },
     data: {
-      authorities: [],
       pageTitle: 'quileiaJavaWebApp.medico.home.title'
     }
   },
@@ -66,7 +62,6 @@ export const medicoRoute: Routes = [
       medico: MedicoResolve
     },
     data: {
-      authorities: [],
       pageTitle: 'quileiaJavaWebApp.medico.home.title'
     }
   },
@@ -77,7 +72,6 @@ export const medicoRoute: Routes = [
       medico: MedicoResolve
     },
     data: {
-      authorities: [],
       pageTitle: 'quileiaJavaWebApp.medico.home.title'
     }
   }

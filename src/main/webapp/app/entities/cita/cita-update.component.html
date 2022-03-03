@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_medicos">Seleccione para ver la lista de medicos</label>
+                    <label class="form-control-label" for="field_medicos">Seleccione para ver la lista de medicos (si no sale ninguno es porque no hay un medico disponible en esta franja horaria o especialidad</label>
                     <select class="form-control" id="field_medicos" name="medicos" formControlName="medicosId">
                         <option *ngIf="!editForm.get('medicosId')!.value" [ngValue]="null" selected></option>
                         <option [ngValue]="medicoOption.id" *ngFor="let medicoOption of medicos; trackBy: trackById">{{ medicoOption.nombreCompleto }}</option>

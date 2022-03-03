@@ -5,8 +5,6 @@ import { JhiResolvePagingParams } from 'ng-jhipster';
 import { Observable, of, EMPTY } from 'rxjs';
 import { flatMap } from 'rxjs/operators';
 
-import { Authority } from 'app/shared/constants/authority.constants';
-import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { IPaciente, Paciente } from 'app/shared/model/paciente.model';
 import { PacienteService } from './paciente.service';
 import { PacienteComponent } from './paciente.component';
@@ -43,7 +41,6 @@ export const pacienteRoute: Routes = [
       pagingParams: JhiResolvePagingParams
     },
     data: {
-      authorities: [],
       defaultSort: 'id,asc',
       pageTitle: 'quileiaJavaWebApp.paciente.home.title'
     }
@@ -55,7 +52,6 @@ export const pacienteRoute: Routes = [
       paciente: PacienteResolve
     },
     data: {
-      authorities: [],
       pageTitle: 'quileiaJavaWebApp.paciente.home.title'
     }
   },
@@ -66,7 +62,6 @@ export const pacienteRoute: Routes = [
       paciente: PacienteResolve
     },
     data: {
-      authorities: [],
       pageTitle: 'quileiaJavaWebApp.paciente.home.title'
     }
   },
@@ -77,7 +72,6 @@ export const pacienteRoute: Routes = [
       paciente: PacienteResolve
     },
     data: {
-      authorities: [],
       pageTitle: 'quileiaJavaWebApp.paciente.home.title'
     }
   }

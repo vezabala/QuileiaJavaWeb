@@ -36,7 +36,7 @@ import java.util.Optional;
  * REST controller for managing {@link quileia.com.domain.Cita}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apis")
 public class CitaResource {
 
     private final Logger log = LoggerFactory.getLogger(CitaResource.class);
