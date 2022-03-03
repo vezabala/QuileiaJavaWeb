@@ -13,6 +13,8 @@ import { IEspecialidad } from 'app/shared/model/especialidad.model';
 import { EspecialidadService } from 'app/entities/especialidad/especialidad.service';
 import { IFranjaHoraria } from 'app/shared/model/franja-horaria.model';
 import { FranjaHorariaService } from 'app/entities/franja-horaria/franja-horaria.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MedicoGuardadoDialogComponent } from 'app/entities/medico/medico-guardado-dialog.component';
 
 type SelectableEntity = ITipoDocumento | IEspecialidad | IFranjaHoraria;
 
@@ -43,7 +45,8 @@ export class MedicoUpdateComponent implements OnInit {
     protected especialidadService: EspecialidadService,
     protected franjaHorariaService: FranjaHorariaService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -60,7 +63,9 @@ export class MedicoUpdateComponent implements OnInit {
       this.franjaHorariaService.query().subscribe((res: HttpResponse<IFranjaHoraria[]>) => (this.franjahorarias = res.body || []));
     });
   }
-
+  ifsave(): void {
+    this.modalService.open(MedicoGuardadoDialogComponent, { size: 'lg', backdrop: 'static' });
+  }
   updateForm(medico: IMedico): void {
     this.editForm.patchValue({
       id: medico.id,
@@ -111,7 +116,7 @@ export class MedicoUpdateComponent implements OnInit {
 
   protected onSaveSuccess(): void {
     this.isSaving = false;
-    this.previousState();
+    this.ifsave();
   }
 
   protected onSaveError(): void {

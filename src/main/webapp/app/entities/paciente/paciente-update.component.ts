@@ -11,6 +11,8 @@ import { PacienteService } from './paciente.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { ITipoDocumento } from 'app/shared/model/tipo-documento.model';
 import { TipoDocumentoService } from 'app/entities/tipo-documento/tipo-documento.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PacienteGuardadoDialogComponent } from 'app/entities/paciente/paciente-guardado-dialog.component';
 
 @Component({
   selector: 'jhi-paciente-update',
@@ -37,7 +39,8 @@ export class PacienteUpdateComponent implements OnInit {
     protected pacienteService: PacienteService,
     protected tipoDocumentoService: TipoDocumentoService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +52,10 @@ export class PacienteUpdateComponent implements OnInit {
         .queryByEstado(STATE_ACTIVEMED)
         .subscribe((res: HttpResponse<ITipoDocumento[]>) => (this.tipodocumentos = res.body || []));
     });
+  }
+
+  ifsave(): void {
+    this.modalService.open(PacienteGuardadoDialogComponent, { size: 'lg', backdrop: 'static' });
   }
 
   updateForm(paciente: IPaciente): void {
@@ -115,7 +122,7 @@ export class PacienteUpdateComponent implements OnInit {
 
   protected onSaveSuccess(): void {
     this.isSaving = false;
-    this.previousState();
+    this.ifsave();
   }
 
   protected onSaveError(): void {

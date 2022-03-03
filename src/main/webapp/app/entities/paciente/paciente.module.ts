@@ -7,10 +7,17 @@ import { PacienteDetailComponent } from './paciente-detail.component';
 import { PacienteUpdateComponent } from './paciente-update.component';
 import { PacienteDeleteDialogComponent } from './paciente-delete-dialog.component';
 import { pacienteRoute } from './paciente.route';
+import { PacienteGuardadoDialogComponent } from 'app/entities/paciente/paciente-guardado-dialog.component';
 
 @NgModule({
   imports: [QuileiaJavaWebSharedModule, RouterModule.forChild(pacienteRoute)],
-  declarations: [PacienteComponent, PacienteDetailComponent, PacienteUpdateComponent, PacienteDeleteDialogComponent],
-  entryComponents: [PacienteDeleteDialogComponent]
+  declarations: [
+    PacienteComponent,
+    PacienteDetailComponent,
+    PacienteUpdateComponent,
+    PacienteDeleteDialogComponent,
+    PacienteGuardadoDialogComponent
+  ],
+  entryComponents: [PacienteDeleteDialogComponent, PacienteGuardadoDialogComponent]
 })
 export class QuileiaJavaWebPacienteModule {}

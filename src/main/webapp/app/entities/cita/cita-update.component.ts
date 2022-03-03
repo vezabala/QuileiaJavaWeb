@@ -16,6 +16,8 @@ import { IMedico } from 'app/shared/model/medico.model';
 import { MedicoService } from 'app/entities/medico/medico.service';
 import { IPaciente } from 'app/shared/model/paciente.model';
 import { PacienteService } from 'app/entities/paciente/paciente.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CitaGuardadoDialogComponent } from 'app/entities/cita/cita-guardado-dialog.component';
 
 type SelectableEntity = IEspecialidad | IFranjaHoraria | IHorario | IMedico | IPaciente;
 
@@ -50,7 +52,8 @@ export class CitaUpdateComponent implements OnInit {
     protected medicoService: MedicoService,
     protected pacienteService: PacienteService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +70,9 @@ export class CitaUpdateComponent implements OnInit {
 
       this.pacienteService.query().subscribe((res: HttpResponse<IPaciente[]>) => (this.pacientes = res.body || []));
     });
+  }
+  ifsave(): void {
+    this.modalService.open(CitaGuardadoDialogComponent, { size: 'lg', backdrop: 'static' });
   }
   horariosList(): void {
     const FRANJA = this.franjaHorariaElegida;
@@ -143,7 +149,7 @@ export class CitaUpdateComponent implements OnInit {
 
   protected onSaveSuccess(): void {
     this.isSaving = false;
-    this.previousState();
+    this.ifsave();
   }
 
   protected onSaveError(): void {
